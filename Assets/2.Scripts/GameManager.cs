@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     //플레이어 데이터
     //public Character Player { get; private set; }
 
-    public float gold;
-    public float gem;
+    public float gold; //총 골드
+    public float gem; // 총 보석
 
     public float finalAttackPower; //최종 데미지
     public float finalCritDamage; // 최종 크리티컬 데미지
