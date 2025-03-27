@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     //public Character Player { get; private set; }
 
     public float gold; //총 골드
-    public float gem; // 총 보석
+    public float point; // 총 보석
 
     public float finalAttackPower; //최종 데미지
     public float finalCritDamage; // 최종 크리티컬 데미지
@@ -56,5 +56,25 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.UpdateUI();
         }
 
+    }
+    public bool UseGold(float usegold) // 타입을 받아오면 하나로 줄일 수 있음.
+    {
+        if(gold>= usegold)
+        {
+            gold -= usegold;
+            return true;
+        }
+        UIManager.Instance.OpenWarningMessage("골드");
+        return false;
+    }
+    public bool UsePoint(float usepoint)// 타입을 받아오면 하나로 줄일 수 있음.
+    {
+        if(point >= usepoint)
+        {
+            point -= usepoint;
+            return true;
+        }
+        UIManager.Instance.OpenWarningMessage("포인트");
+        return false;
     }
 }
