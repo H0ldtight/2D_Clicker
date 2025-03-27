@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public float finalCritDamage; // 최종 크리티컬 데미지
     public float finalGoldBonus = 1; // 최종 골드 보너스
 
+    public bool isPaused; // 일시정지
+
     private void Awake()
     {
         if(Instance == null)
@@ -47,9 +49,12 @@ public class GameManager : MonoBehaviour
 
     public void OnClick()
     {
-        //적공격 및 재화 증가
-        gold += finalGoldBonus;
-        gem += 2f;
-        UIManager.Instance.UpdateUI();
+        if(!isPaused)
+        {
+            gold += finalGoldBonus;
+            gem += 2f;
+            UIManager.Instance.UpdateUI();
+        }
+
     }
 }
