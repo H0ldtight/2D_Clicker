@@ -1462,6 +1462,7 @@ MonoBehaviour:
   finalCritDamage: 0
   finalGoldBonus: 1
   isPaused: 0
+  autoAttackSpeed: 1
 --- !u!4 &982905381
 Transform:
   m_ObjectHideFlags: 0
