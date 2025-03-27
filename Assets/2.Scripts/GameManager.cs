@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (autoAttackCorutine == null)
             autoAttackCorutine = StartCoroutine(AutoAttack());
     }
-    public void StopAutoAttack() // 자동공격 멈춤
+    public void StopAutoAttack() // 자동공격 멈춤 일시정지할 때
     {
         if(autoAttackCorutine != null)
         {
