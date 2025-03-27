@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // 실제 적의 출현과 관리
@@ -11,6 +9,10 @@ public class EnemyManager : MonoBehaviour
     
     private EnemyData currentEnemyData;
     private int remainCount;
+    
+    // 스테이지 보상관련
+    private int goldReward;
+    private int pointReward;
     
     private void Awake()
     {
@@ -40,12 +42,16 @@ public class EnemyManager : MonoBehaviour
         GameObject enemyObj = Instantiate(enemyPrefab, GetSpawnPosition(), Quaternion.identity);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.data = currentEnemyData;
+        
         remainCount--;
     }
     
     public void OnEnemyDied(Enemy enemy)
     {
-        // 적 die시 플레이어 골드 획득 : 플레이어에서 스테이지내 적의 수가 0 인경우 골드 획득.
+        // 스테이지 보상관련
+        // GameManager.Instance.AddGold(goldReward);
+        // GameManager.Instance.AddPoint(pointReward);
+
         Destroy(enemy.gameObject);
         SpawnNextEnemy();
     }
@@ -53,6 +59,7 @@ public class EnemyManager : MonoBehaviour
     // 적 스폰 위치 지정
     private Vector3 GetSpawnPosition()
     {
+        Debug.Log("나타났다");
         return new Vector3(0, 0, 0);
     }
 }
