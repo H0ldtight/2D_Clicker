@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
     //플레이어 데이터
     //public Character Player { get; private set; }
 
+    public float gold;
+    public float gem;
+
     public float finalAttackPower; //최종 데미지
     public float finalCritDamage; // 최종 크리티컬 데미지
-    public float finalGoldBonus; // 최종 골드 보너스
+    public float finalGoldBonus = 1; // 최종 골드 보너스
 
     private void Awake()
     {
@@ -28,7 +31,9 @@ public class GameManager : MonoBehaviour
 
     public void CalculateFinalStats()
     {
-
+        //finalAttackPower +=
+        //finalCritDamage +=
+        //finalGoldBonus +=
     }
 
     public void NewPlayerData()
@@ -40,4 +45,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void OnClick()
+    {
+        //적공격 및 재화 증가
+        gold += finalGoldBonus;
+        gem += 2f;
+        UIManager.Instance.UpdateUI();
+    }
 }
