@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // 적 정보
-    // 이름, 체력, 
+    public EnemyData data;
+    
+    private int currentHealth;
+
+    private void Start()
+    {
+        currentHealth = data.maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            EnemyManager.Instance.OnEnemyDied(this);
+        }
+    }
+    
+    // 피격 애니메이션 추가 가능
 }
