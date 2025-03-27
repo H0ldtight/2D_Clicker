@@ -1,26 +1,18 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//능력치 관련
 public enum StatType
 {
-    AttackDamage,
+    AttackPerSecond,
     CriticalPercent,
-    CriticalDamage,
-    GoldPerAction,
-    AutoAttack,
-}
-
-[Serializable]
-public struct Stat
-{
-    public StatType type;
-    public string value;
+    ExtraGold,
+    AttackPower
 }
 
 [CreateAssetMenu(fileName = "NewStatBase", menuName ="Stats")]
 public class StatData : ScriptableObject
 {
-    public List<Stat> stats;
+    public Dictionary<StatType, float> stats;
 }
