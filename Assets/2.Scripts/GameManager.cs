@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
         if(!isPaused)
         {
             gold += finalGoldBonus;
-            gem += 2f;
-            UIManager.Instance.UpdateUI();
+            point += 2f;
+            UIManager.Instance.MainUI.UpdateUI();
         }
 
     }
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
             gold -= usegold;
             return true;
         }
-        UIManager.Instance.OpenWarningMessage("골드");
+        UIManager.Instance.MainUI.OpenWarningMessage("골드");
         return false;
     }
     public bool UsePoint(float usepoint)// 타입을 받아오면 하나로 줄일 수 있음.
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
             point -= usepoint;
             return true;
         }
-        UIManager.Instance.OpenWarningMessage("포인트");
+        UIManager.Instance.MainUI.OpenWarningMessage("포인트");
         return false;
     }
 }
