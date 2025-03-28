@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 //능력치 관련
@@ -9,7 +10,6 @@ public enum StatType
     AttackPerSecond,    //초당공격
     Criticaldamage,     //크리티컬 데미지
     ExtraGold,          //증가한 골드획득량
-    AttackPower,        //공격력
     Count
 }
 
@@ -33,8 +33,14 @@ public class StatData : ScriptableObject
 
     private void OnValidate()
     {
-        stats = new Stat[(int)StatType.Count];
-        //if (stats.)
+        if (stats.Length <= (int)StatType.Count)
+        {
+            stats = new Stat[(int)StatType.Count];
+            for (int i = 0; i < stats.Length; i++)
+            {
+                stats[i] = new Stat((StatType)i);
+            }
+        }
     }
 
     public int FindStatIndex(StatType type)
