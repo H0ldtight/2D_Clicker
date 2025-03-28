@@ -9497,6 +9497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5451190353262698881}
+  - component: {fileID: 7982918016007663638}
   m_Layer: 5
   m_Name: PausedUI
   m_TagString: Untagged
@@ -9504,6 +9505,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &7982918016007663638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7982918016007663637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48fd0d0790be3d4184f66646696b891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startBotton: {fileID: 4347078529547103896}
+  continueButton: {fileID: 7505304337751486925}
+  saveButton: {fileID: 1814649995}
 --- !u!114 &7997047519416206969
 MonoBehaviour:
   m_ObjectHideFlags: 0

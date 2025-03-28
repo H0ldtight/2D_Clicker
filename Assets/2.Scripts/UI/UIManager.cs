@@ -18,8 +18,8 @@ public class UIManager : MonoBehaviour
     public GameObject weaponInventoryUiObj;
     public GameObject pausedUiObj;
 
-    public Button pausedBtn;
-    public bool togle;
+    public Button pausedBtn; 
+    public bool togle; //일시 정지 토글용
     private void Awake()
     {
         if (Instance == null)
@@ -40,6 +40,9 @@ public class UIManager : MonoBehaviour
     {
         startUiObj.SetActive(true);
         mainUiObj.SetActive(false);
+        pausedUiObj.SetActive(false);
+        togle = false; //일시 정지 해제
+        GameManager.Instance.isPaused = false; //일시 정지 해제
     }
 
     public void OpenMainUi() // 메인 화면
@@ -50,6 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void TogglePausedUi() //일시 정지 화면
     {
+        GameManager.Instance.isPaused= !GameManager.Instance.isPaused;
         togle = !togle;
         pausedUiObj.SetActive(togle);
     }

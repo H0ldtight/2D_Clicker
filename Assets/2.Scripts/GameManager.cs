@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
         //finalGoldBonus +=
     }
 
+    public void SaveData()
+    {
+        //데이터 저장
+    }
     public void NewPlayerData()
     {
         //플레이어 데이터 생성
@@ -108,7 +112,7 @@ public class GameManager : MonoBehaviour
             gold -= usegold;
             return true;
         }
-        UIManager.Instance.MainUI.OpenWarningMessage("골드");
+        UIManager.Instance.MainUI.OpenMessage("골드가 부족합니다.");
         return false;
     }
     public bool UsePoint(float usepoint)// 타입을 받아오면 하나로 줄일 수 있음.
@@ -118,7 +122,7 @@ public class GameManager : MonoBehaviour
             point -= usepoint;
             return true;
         }
-        UIManager.Instance.MainUI.OpenWarningMessage("포인트");
+        UIManager.Instance.MainUI.OpenMessage("포인트가 부족합니다.");
         return false;
     }
 }
