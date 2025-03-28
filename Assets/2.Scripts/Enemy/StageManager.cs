@@ -20,7 +20,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int goldPerStage = 2; // 스테이지마다 골드 보상 증가
     [SerializeField] private int basePointReward = 1;
     [SerializeField] private int pointPerStage = 1; // 스테이지마다 포인트 보상 증가
-    
+
     private int currentStageIndex = 0;
     
     private void Awake()
@@ -51,6 +51,10 @@ public class StageManager : MonoBehaviour
         // 보상 - 스테이지 올라갈수록 받는 골드, 포인트 증가 // 적 클릭 골드, 적 죽이면 포인트
         int goldReward = baseGoldReward + goldPerStage * stageIndex;
         int pointReward = basePointReward + pointPerStage * stageIndex;
+
+        // StageUI에 스테이지 번호, 적 이름, 적 수 표시
+        UIManager.Instance.StageUI.SetStage(currentStageIndex);
+        UIManager.Instance.StageUI.SetEnemy(stageEnemy.enemyName, stageEnemy.enemyCount);
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
         

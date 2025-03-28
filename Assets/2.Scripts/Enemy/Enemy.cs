@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Enemy : MonoBehaviour
         currentHealth = data.maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
         currentHealth -= damage;
         
@@ -25,6 +26,8 @@ public class Enemy : MonoBehaviour
         {
             UpdatehealthBar();
         }
+        
+        Debug.Log("Taking Damage");
     }
     
     private void UpdatehealthBar()
@@ -36,4 +39,5 @@ public class Enemy : MonoBehaviour
         }
     }
     // 피격 애니메이션 추가 가능
+    
 }

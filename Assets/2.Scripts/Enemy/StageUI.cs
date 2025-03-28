@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// 데이터 보여주는 담당
 public class StageUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text stageText;

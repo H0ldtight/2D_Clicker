@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
     private int goldReward;
     private int pointReward;
 
-    [SerializeField] private Transform enemyParent; // 프리팹의 부모가 될 Transform
+    [SerializeField] private Transform enemyParent; // 적 프리팹의 부모
     
     private void Awake()
     {
