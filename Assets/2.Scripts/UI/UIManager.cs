@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject mainUiObj;
     public GameObject weaponInventoryUiObj;
     public GameObject pausedUiObj;
+    public GameObject stageUiObj;
 
     public Button pausedBtn; 
     public bool togle; //일시 정지 토글용
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
         startUiObj.SetActive(true);
         mainUiObj.SetActive(false);
         pausedUiObj.SetActive(false);
+        stageUiObj.SetActive(false);
         togle = false; //일시 정지 해제
         GameManager.Instance.isPaused = false; //일시 정지 해제
     }
@@ -49,6 +51,7 @@ public class UIManager : MonoBehaviour
     {
         mainUiObj.SetActive(true);
         startUiObj.SetActive(false);
+        stageUiObj.SetActive(true);
     }
 
     public void TogglePausedUi() //일시 정지 화면
