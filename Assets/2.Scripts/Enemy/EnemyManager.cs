@@ -13,6 +13,8 @@ public class EnemyManager : MonoBehaviour
     // 스테이지 보상관련
     private int goldReward;
     private int pointReward;
+
+    [SerializeField] private Transform enemyParent; // 프리팹의 부모가 될 Transform
     
     private void Awake()
     {
@@ -39,7 +41,7 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        GameObject enemyObj = Instantiate(enemyPrefab, GetSpawnPosition(), Quaternion.identity);
+        GameObject enemyObj = Instantiate(enemyPrefab, GetSpawnPosition(), Quaternion.identity, enemyParent);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.data = currentEnemyData;
         
@@ -59,7 +61,6 @@ public class EnemyManager : MonoBehaviour
     // 적 스폰 위치 지정
     private Vector3 GetSpawnPosition()
     {
-        Debug.Log("나타났다");
-        return new Vector3(0, 0, 0);
+        return enemyParent != null ? enemyParent.position : Vector3.zero;
     }
 }

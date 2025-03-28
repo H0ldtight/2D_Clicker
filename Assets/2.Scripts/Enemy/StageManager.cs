@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 게임의 진행 흐름
+// 게임의 진행 흐름, 난이도 및 보상 세팅
 public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
@@ -9,12 +9,13 @@ public class StageManager : MonoBehaviour
     public List<EnemyData> stageEnemies;
     public EnemyData enemyTemplate;
     
+    [Header("Enemy Setting")]
     [SerializeField] private int baseHealth = 50;
     [SerializeField] private int baseCount = 10;
     [SerializeField] private int healthPerStage = 10;
     [SerializeField] private int countPerStage = 1;
     
-    // 스테이지 보상관련
+    [Header("Reward Settings")]
     [SerializeField] private int baseGoldReward = 1;
     [SerializeField] private int goldPerStage = 2; // 스테이지마다 골드 보상 증가
     [SerializeField] private int basePointReward = 1;
@@ -42,11 +43,12 @@ public class StageManager : MonoBehaviour
         currentStageIndex = stageIndex;
 
         EnemyData stageEnemy = ScriptableObject.CreateInstance<EnemyData>();
-        stageEnemy.enemyName = enemyTemplate.enemyName + $"_{stageIndex + 1}";
+        stageEnemy.enemyName = enemyTemplate.enemyName + $"{stageIndex + 1}";
+        // 스테이지 난이도 - 스테이지 올라갈수록 적의 체력,개수 증가
         stageEnemy.maxHealth = baseHealth + healthPerStage * stageIndex;
         stageEnemy.enemyCount = baseCount + countPerStage * stageIndex;
 
-        // 스테이지 보상관련
+        // 보상 - 스테이지 올라갈수록 받는 골드, 포인트 증가 // 적 클릭 골드, 적 죽이면 포인트
         int goldReward = baseGoldReward + goldPerStage * stageIndex;
         int pointReward = basePointReward + pointPerStage * stageIndex;
         

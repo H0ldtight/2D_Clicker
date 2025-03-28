@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 8039675509136137857}
   - component: {fileID: 1953351701178074267}
   - component: {fileID: 2640672395787340814}
+  - component: {fileID: -5443200077369063466}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -186,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 293}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1953351701178074267
@@ -227,3 +228,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-5443200077369063466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745344713431446856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13550e2ceee8342e9ae2bc5eabeb28af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 36164793fd17c41aa9bad63a7d6126cb, type: 2}
+  healthBar: {fileID: 8759036992557596469}
