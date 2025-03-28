@@ -72,10 +72,11 @@ public class Character
             // TODO: UI 나중에 연결하기
             return;
         }
-
-        upgrade.level++;
-        //this.statData.stats[stat] += upgrade.level * upgrade.value;
-        upgrade.requireGold = upgrade.requireGold * 2;
+        int idx = statData.FindStatIndex(upgrade.statType);
+        
+        Stat stat = statData.stats[idx];
+        stat.totalValue += upgrade.value;
+        upgrade.requireGold *= 2;
     }
 
     //무기 강화
