@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
 
     private string saveDirectory;//저장 경로
 
-    public GameObject clickEffectPrefab;
-    public Transform effectHolder;
+    public GameObject clickEffectPrefab; //파티클 프리펩
+    public Transform effectHolder; //파티클 
     public Camera effectCamera; // 파티클용 카메라
 
     private void Awake()
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnClickEffect(Vector3 screenPosition)  // 파티클 시스템
     {
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector3 worldPos = effectCamera.ScreenToWorldPoint(screenPosition);
         worldPos.z = effectCamera.nearClipPlane + 0.1f;
 
         GameObject fx = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity, effectHolder);
