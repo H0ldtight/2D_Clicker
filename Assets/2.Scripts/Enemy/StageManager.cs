@@ -53,8 +53,8 @@ public class StageManager : MonoBehaviour
         int pointReward = basePointReward + pointPerStage * stageIndex;
 
         // StageUI에 스테이지 번호, 적 이름, 적 수 표시
-        UIManager.Instance.StageUI.SetStage(currentStageIndex);
-        UIManager.Instance.StageUI.SetEnemy(stageEnemy.enemyName, stageEnemy.enemyCount);
+        // UIManager.Instance.StageUI.SetStage(currentStageIndex);
+        // UIManager.Instance.StageUI.SetEnemy(stageEnemy.enemyName, stageEnemy.enemyCount);
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
         
