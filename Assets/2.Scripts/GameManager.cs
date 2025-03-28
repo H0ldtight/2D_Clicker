@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public Character player;
 
     public float gold; //총 골드
-    public float point; // 총 보석
+    public float point; // 총 포인트
 
     public float finalAttackPower; //최종 데미지
     public float finalCritDamage; // 최종 크리티컬 데미지
