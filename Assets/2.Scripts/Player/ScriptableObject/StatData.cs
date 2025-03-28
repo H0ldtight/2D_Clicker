@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //능력치 관련
+
+[System.Serializable]
 public enum StatType
 {
     AttackPerSecond,    //초당공격
@@ -11,8 +13,16 @@ public enum StatType
     AttackPower         //공격력
 }
 
+
+[System.Serializable]
+public struct Stat
+{
+    public StatType stat;
+    public float totalValue;
+}
+
 [CreateAssetMenu(fileName = "NewStatBase", menuName ="Stats")]
 public class StatData : ScriptableObject
 {
-    public Dictionary<StatType, float> stats;
+    public Stat[] stats;
 }
