@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     //플레이어 데이터
     public Character player;
+    //public StatData statData;
 
     public float gold; //총 골드
     public float point; // 총 보석
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     private string saveDirectory;//저장 경로
 
+    public GameObject clickEffectPrefab;
+    public Transform effectHolder;
+    public Camera effectCamera; // 파티클용 카메라
 
     private void Awake()
     {
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
+        //NewPlayerData();
         StartAutoAttack();
     }
 
@@ -67,6 +72,8 @@ public class GameManager : MonoBehaviour
     public void NewPlayerData()
     {
         //플레이어 데이터 생성
+       // player = new Character(statData);
+        //Debug.Log(player);
 
     }
     public void LoadPlayerData() //이어 하기시
@@ -115,9 +122,21 @@ public class GameManager : MonoBehaviour
             gold += finalGoldBonus;
             point += 2f;
             UIManager.Instance.MainUI.UpdateUI();
+
+            SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
         }
 
     }
+
+    public void SpawnClickEffect(Vector3 screenPosition)  // 파티클 시스템
+    {
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
+        worldPos.z = effectCamera.nearClipPlane + 0.1f;
+
+        GameObject fx = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity, effectHolder);
+        Destroy(fx, 1f);
+    }
+
     public bool UseGold(float usegold) // 타입을 받아오면 하나로 줄일 수 있음.
     {
         if(gold>= usegold)
