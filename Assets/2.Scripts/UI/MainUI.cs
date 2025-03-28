@@ -25,10 +25,10 @@ public class MainUI : MonoBehaviour
         pointText.text = GameManager.Instance.point.ToString();
     }
 
-    public void OpenWarningMessage(string message)
+    public void OpenMessage(string message)
     {
 
-        WarningMessageText.text = $"{message}가 부족합니다.";
+        WarningMessageText.text = $"{message}";
         if (warningCoroutine != null) //코루틴 예외처리
         {
             StopCoroutine(warningCoroutine);
