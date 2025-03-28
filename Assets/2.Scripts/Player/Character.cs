@@ -73,23 +73,14 @@ public class Character
             return;
         }
         int idx = statData.FindStatIndex(upgrade.statType);
-        
+
+        if (idx == -1)
+        {
+            return;
+        }
+
         Stat stat = statData.stats[idx];
         stat.totalValue += upgrade.value;
         upgrade.requireGold *= 2;
-    }
-
-    //무기 강화
-    public void Enchant(float ATK)
-    {
-        // TODO: 예외 처리 필요
-        ////보유 포인트 모자랄 시 업그레이드 불가
-        //if (point < /*무기 강화시 필요골드*/)
-        //{
-        //    // TODO: UI 나중에 연결하기
-        //    return;
-        //}
-
-        //statData.stats[StatType.AttackPower] += ATK;
     }
 }
