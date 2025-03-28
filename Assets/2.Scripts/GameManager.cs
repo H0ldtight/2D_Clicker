@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     //플레이어 데이터
-    //public Character Player { get; private set; }
+    public Character player;
 
     public float gold; //총 골드
     public float point; // 총 보석
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
     public float autoAttackSpeed = 3f; // 기본 자동 공격 시간
     public WaitForSeconds autoAttackDelay;  // 자동공격 코루틴 딜레이 재생성 방지
 
+    private string saveDirectory;//저장 경로
+
+
     private void Awake()
     {
         if(Instance == null)
@@ -33,6 +37,11 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+        saveDirectory = Path.Combine(Application.dataPath, "5.PlayerData"); //에셋 저장 경로
+        if (!Directory.Exists(saveDirectory))
+        {
+            Directory.CreateDirectory(saveDirectory);
         }
     }
     private void Start()
@@ -51,10 +60,14 @@ public class GameManager : MonoBehaviour
     public void SaveData()
     {
         //데이터 저장
+        string filePath = Path.Combine(saveDirectory,"PlayerData.json");//파일 경로 및 파일 이름 지정
+        string json = JsonUtility.ToJson(player, true); //제이슨 변환 
+        File.WriteAllText(filePath, json); // 생성
     }
     public void NewPlayerData()
     {
         //플레이어 데이터 생성
+
     }
     public void LoadPlayerData() //이어 하기시
     {
@@ -124,5 +137,10 @@ public class GameManager : MonoBehaviour
         }
         UIManager.Instance.MainUI.OpenMessage("포인트가 부족합니다.");
         return false;
+    }
+
+    public void PlayerUpgrade()
+    {
+
     }
 }
