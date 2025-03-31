@@ -9,6 +9,11 @@ public class StageManager : MonoBehaviour
     public List<EnemyData> stageEnemies;
     public EnemyData enemyTemplate;
     
+    private int currentStageIndex;
+    
+    // 외부 읽기전용, 최근 스테이지
+    public int CurrentStageIndex => currentStageIndex;
+    
     [Header("Enemy Setting")]
     [SerializeField] private int baseHealth = 50;
     [SerializeField] private int baseCount = 10;
@@ -20,8 +25,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int goldPerStage = 2; // 스테이지마다 골드 보상 증가
     [SerializeField] private int basePointReward = 1;
     [SerializeField] private int pointPerStage = 1; // 스테이지마다 포인트 보상 증가
-
-    private int currentStageIndex;
     
     private void Awake()
     {
