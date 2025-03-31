@@ -31,6 +31,8 @@ public class EnemyManager : MonoBehaviour
         currentEnemyData = data;
         remainCount = data.enemyCount;
         SpawnNextEnemy();
+        
+        Debug.Log("Spawned Enemy.");
     }
 
     private void SpawnNextEnemy()
