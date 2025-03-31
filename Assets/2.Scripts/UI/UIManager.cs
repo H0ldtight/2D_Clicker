@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour
     public GameObject weaponInventoryUiObj;
     public GameObject pausedUiObj;
     public GameObject stageUiObj;
+    public GameObject soundUiObj;
 
-    public Button pausedBtn; 
+    public Button pausedBtn;
     public bool togle; //일시 정지 토글용
     private void Awake()
     {
@@ -69,4 +70,14 @@ public class UIManager : MonoBehaviour
         weaponInventoryUiObj.SetActive(true);
     }
 
+    public void OpenSoundUi()
+    {
+        soundUiObj.SetActive(true);
+    }
+    public void CloseSoundUi()
+    {
+        soundUiObj.SetActive(false);
+    }
+
 }
+
