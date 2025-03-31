@@ -6,7 +6,6 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
 
-    public List<EnemyData> stageEnemies;
     public EnemyData enemyTemplate;
     
     private int currentStageIndex;
@@ -74,14 +73,7 @@ public class StageManager : MonoBehaviour
     {
         currentStageIndex++;
         
-        if (currentStageIndex < stageEnemies.Count)
-        {
-            StartStage(currentStageIndex);
-        }
-        else
-        {
-            Debug.Log("Stage cleared!");
-            StartStage(currentStageIndex);
-        }
+        Debug.Log("Stage cleared!");
+        StartStage(currentStageIndex);
     }
 }
