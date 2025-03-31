@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class WeaponUI : MonoBehaviour
+public class WeaponUI2 : MonoBehaviour
 {
 
-    public static WeaponUI Instance { get; private set; }
+    public static WeaponUI2 Instance { get; private set; }
     public List<WeaponData> Weapons { get; private set; } = new List<WeaponData>();
 
     public TextMeshProUGUI weaponName;

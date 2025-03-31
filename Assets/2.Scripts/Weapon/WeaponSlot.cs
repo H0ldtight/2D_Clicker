@@ -24,7 +24,7 @@ public class WeaponSlot : MonoBehaviour
     public void SetWeaponInventoryData()
     {
 
-        List<WeaponData> weapons = WeaponUI.Instance.Weapons;
+        List<WeaponData> weapons = WeaponUI2.Instance.Weapons;
 
         WeaponData weapon = weapons[Index];
 

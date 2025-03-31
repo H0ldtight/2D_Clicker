@@ -1,0 +1,6 @@
+weaponName,upgradeLevel,weaponDamage,criticalPercentage,icon,purchaseCost,upgradeCost,IsPurchased,IsEquiped
+나무검,1,1,10,woodsword,20,100,True,True
+돌검,1,5,15,stonesword,80,100,False,False
+철검,1,10,20,ironsword,320,100,False,False
+황금검,1,20,25,goldensword,1280,100,False,False
+다이아몬드검,1,50,30,diamondsword,5120,100,False,False
