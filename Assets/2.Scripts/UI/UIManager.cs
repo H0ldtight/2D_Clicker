@@ -22,6 +22,9 @@ public class UIManager : MonoBehaviour
 
     public Button pausedBtn;
     public bool togle; //일시 정지 토글용
+
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -72,7 +75,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenSoundUi()
     {
-        soundUiObj.SetActive(true);
+        soundUiObj.SetActive(true); 
     }
     public void CloseSoundUi()
     {
