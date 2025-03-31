@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 //강화할 수 있는 옵션
 public enum UpgradeType
@@ -53,10 +54,12 @@ public class Character
         
         this.statData = statData;
 
+        upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
+
         //골드획득량증가 옵션 등록
         upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(30, 1, 25, StatType.ExtraGold));
         //자동공격 몇초에 1대씩 때릴건지
-        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 1, 25, StatType.AttackPerSecond));
+        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 1, 25, StatType.ReduceAttackSpeed));
         //크리티컬 데미지 증가
         upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 1, 25, StatType.Criticaldamage));
     }
@@ -67,20 +70,11 @@ public class Character
         UpgradeOption upgrade = upgradeOptions[type];
 
         //보유 골드 모자랄 시 업그레이드 불가
-        if (gold < upgrade.requireGold)
-        {
-            // TODO: UI 나중에 연결하기
-            return;
-        }
+        if (!GameManager.Instance.UseGold(upgrade.requireGold)) return;
+
         int idx = statData.FindStatIndex(upgrade.statType);
 
-        if (idx == -1)
-        {
-            return;
-        }
-
-        Stat stat = statData.stats[idx];
-        stat.totalValue += upgrade.value;
+        statData.SetStat(idx, upgrade.value);
         upgrade.requireGold *= 2;
     }
 }
