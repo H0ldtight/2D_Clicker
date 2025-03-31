@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+
     //플레이어 데이터
     public Character player;
     public StatData statData;
@@ -161,12 +162,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //크리티컬 업그레이드
     public void UpgradeCriticalDamage()
     {
         player.Upgrade(UpgradeType.Critical);
         UIManager.Instance.MainUI.UpdateUI();
     }
 
+    //골드 획득량 증가 업그레이드
     public void UpgradeMoreMoney()
     {
         player.Upgrade(UpgradeType.PlusGold);

@@ -76,5 +76,7 @@ public class Character
 
         statData.SetStat(idx, upgrade.value);
         upgrade.requireGold *= 2;
+
+        UIManager.Instance.MainUI.WeaponUI.UpdateUI(type);
     }
 }

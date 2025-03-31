@@ -17,6 +17,14 @@ public class WeaponUI : MonoBehaviour
     public TextMeshProUGUI AutoAttackValue;
     public TextMeshProUGUI MoreMoneyValue;
 
+    public void UpdateUI()
+    {
+        UpdateUI(UpgradeType.PlusGold);
+        UpdateUI(UpgradeType.AutoAttack);
+        UpdateUI(UpgradeType.Critical);
+    }
+
+    //업그레이드 부분
     public void UpdateUI(UpgradeType type)
     {
         TextMeshProUGUI gold;
@@ -48,4 +56,6 @@ public class WeaponUI : MonoBehaviour
         level.text = $"{GameManager.Instance.player.upgradeOptions[type].level}";
         value.text = $"{GameManager.Instance.player.upgradeOptions[type].value}";
     }
+
+
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,6 +15,10 @@ public class MainUI : MonoBehaviour
 
     private WaitForSeconds delay = new WaitForSeconds(1f); // 경고 메세지 딜레이
     Coroutine warningCoroutine; // 코루틴 중복 방지용도
+
+    [SerializeField] private WeaponUI weaponUI;
+    public WeaponUI WeaponUI { get { return weaponUI; } }
+
     private void Start()
     {
         WarningMessage.SetActive(false);
@@ -23,6 +28,7 @@ public class MainUI : MonoBehaviour
     {
         goldText.text = GameManager.Instance.gold.ToString();
         pointText.text = GameManager.Instance.point.ToString();
+        weaponUI.UpdateUI();
     }
 
     public void OpenMessage(string message)
@@ -36,8 +42,6 @@ public class MainUI : MonoBehaviour
         }
 
         warningCoroutine = StartCoroutine(WarningmessageDelay());
-
-
     }
 
     IEnumerator WarningmessageDelay()
