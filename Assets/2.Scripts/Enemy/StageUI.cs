@@ -25,4 +25,9 @@ public class StageUI : MonoBehaviour
     {
         enemyCountText.text = $"x {count}";
     }
+
+    public void UpdateStageText(int stage)
+    {
+        stageText.text = $"Stage {stage + 1}";
+    }
 }

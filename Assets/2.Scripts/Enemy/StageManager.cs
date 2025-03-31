@@ -21,7 +21,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int basePointReward = 1;
     [SerializeField] private int pointPerStage = 1; // 스테이지마다 포인트 보상 증가
 
-    private int currentStageIndex = 0;
+    private int currentStageIndex;
     
     private void Awake()
     {
@@ -40,6 +40,7 @@ public class StageManager : MonoBehaviour
 
     public void StartStage(int stageIndex)
     {
+        UIManager_test.Instance.StageUI.UpdateStageText(currentStageIndex);
         currentStageIndex = stageIndex;
 
         EnemyData stageEnemy = ScriptableObject.CreateInstance<EnemyData>();
@@ -77,8 +78,7 @@ public class StageManager : MonoBehaviour
         else
         {
             Debug.Log("Stage cleared!");
+            StartStage(currentStageIndex);
         }
-        
-        StartStage(currentStageIndex);
     }
 }
