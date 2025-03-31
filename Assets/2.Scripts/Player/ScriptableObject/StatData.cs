@@ -7,7 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public enum StatType
 {
-    AttackPerSecond,    //초당공격
+    ReduceAttackSpeed,    //초당공격
     Criticaldamage,     //크리티컬 데미지
     ExtraGold,          //증가한 골드획득량
     Count
@@ -53,5 +53,15 @@ public class StatData : ScriptableObject
             }
         }
         return -1;
+    }
+
+    public float GetStatValue(StatType type)
+    {
+        return stats[FindStatIndex(type)].totalValue;
+    }
+
+    public void SetStat(int idx, float value)
+    {
+        stats[idx].totalValue += value;
     }
 }

@@ -9,6 +9,11 @@ public class StageManager : MonoBehaviour
     public List<EnemyData> stageEnemies;
     public EnemyData enemyTemplate;
     
+    private int currentStageIndex;
+    
+    // 외부 읽기전용, 최근 스테이지
+    public int CurrentStageIndex => currentStageIndex;
+    
     [Header("Enemy Setting")]
     [SerializeField] private int baseHealth = 50;
     [SerializeField] private int baseCount = 10;
@@ -20,8 +25,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int goldPerStage = 2; // 스테이지마다 골드 보상 증가
     [SerializeField] private int basePointReward = 1;
     [SerializeField] private int pointPerStage = 1; // 스테이지마다 포인트 보상 증가
-
-    private int currentStageIndex = 0;
     
     private void Awake()
     {
@@ -40,6 +43,7 @@ public class StageManager : MonoBehaviour
 
     public void StartStage(int stageIndex)
     {
+        UIManager_test.Instance.StageUI.UpdateStageText(currentStageIndex);
         currentStageIndex = stageIndex;
 
         EnemyData stageEnemy = ScriptableObject.CreateInstance<EnemyData>();
@@ -55,6 +59,11 @@ public class StageManager : MonoBehaviour
         // StageUI에 스테이지 번호, 적 이름, 적 수 표시
         // UIManager.Instance.StageUI.SetStage(currentStageIndex);
         // UIManager.Instance.StageUI.SetEnemy(stageEnemy.enemyName, stageEnemy.enemyCount);
+        
+        // 테스트용
+        UIManager_test.Instance.StageUI.SetStage(currentStageIndex);
+        UIManager_test.Instance.StageUI.SetEnemy();
+        
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
         
@@ -72,8 +81,7 @@ public class StageManager : MonoBehaviour
         else
         {
             Debug.Log("Stage cleared!");
+            StartStage(currentStageIndex);
         }
-        
-        StartStage(currentStageIndex);
     }
 }

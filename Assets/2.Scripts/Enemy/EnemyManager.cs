@@ -10,8 +10,7 @@ public class EnemyManager : MonoBehaviour
     private EnemyData currentEnemyData;
     private int remainCount;
     
-    // 스테이지 보상관련
-    private int goldReward;
+    // 적처치 보상관련
     private int pointReward;
 
     [SerializeField] private Transform enemyParent; // 적 프리팹의 부모
@@ -31,6 +30,8 @@ public class EnemyManager : MonoBehaviour
         currentEnemyData = data;
         remainCount = data.enemyCount;
         SpawnNextEnemy();
+        
+        Debug.Log("Spawned Enemy.");
     }
 
     private void SpawnNextEnemy()
@@ -50,11 +51,14 @@ public class EnemyManager : MonoBehaviour
     
     public void OnEnemyDied(Enemy enemy)
     {
-        // 스테이지 보상관련
-        // GameManager.Instance.AddGold(goldReward);
+        // 적처치 보상관련
         // GameManager.Instance.AddPoint(pointReward);
 
         Destroy(enemy.gameObject);
+        
+        UIManager_test.Instance.StageUI.UpdateEnemyCount(remainCount);
+        Debug.Log("Enemy Died");
+        
         SpawnNextEnemy();
     }
     
@@ -63,4 +67,6 @@ public class EnemyManager : MonoBehaviour
     {
         return enemyParent != null ? enemyParent.position : Vector3.zero;
     }
+
+    public int TotalCount => currentEnemyData != null ? currentEnemyData.enemyCount : 0;
 }
