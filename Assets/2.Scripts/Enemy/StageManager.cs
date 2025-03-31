@@ -24,7 +24,11 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int goldPerStage = 2; // 스테이지마다 골드 보상 증가
     [SerializeField] private int basePointReward = 1;
     [SerializeField] private int pointPerStage = 1; // 스테이지마다 포인트 보상 증가
-    
+
+    [Header("Enemy Image Pool")]
+    [SerializeField] private string enemySpriteFolderPath = "EnemySprites";
+    private Sprite[] allEnemySprites;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,6 +41,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
+        allEnemySprites = Resources.LoadAll<Sprite>(enemySpriteFolderPath);
         StartStage(currentStageIndex);
     }
 
@@ -63,6 +68,10 @@ public class StageManager : MonoBehaviour
         UIManager_test.Instance.StageUI.SetStage(currentStageIndex);
         UIManager_test.Instance.StageUI.SetEnemy();
         
+        if (allEnemySprites != null && allEnemySprites.Length > 0)
+        {
+            stageEnemy.enemySprite = allEnemySprites[Random.Range(0, allEnemySprites.Length)];
+        }
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
         

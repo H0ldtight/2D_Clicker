@@ -13,10 +13,24 @@ public class Enemy : MonoBehaviour
     // 외부 읽기전용, 적의 체력
     public int CurrentHealth => currentHealth;
     public int MaxHealth => data.maxHealth;
+    
+    [SerializeField] private Image enemyImage;
+
 
     private void Start()
     {
         currentHealth = MaxHealth;
+
+        if (enemyImage != null && data.enemySprite != null)
+        {
+            Debug.Log($"[이미지 설정] {data.enemySprite.name}");
+            enemyImage.sprite = data.enemySprite;
+        }
+        else
+        {
+            Debug.LogWarning($"[이미지 설정 실패] enemyImage: {enemyImage}, enemySprite: {data.enemySprite}");
+        }
+
         // 테스트용
         StartCoroutine(AutoDamage());
     }
