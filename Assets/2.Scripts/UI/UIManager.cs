@@ -18,9 +18,13 @@ public class UIManager : MonoBehaviour
     public GameObject weaponInventoryUiObj;
     public GameObject pausedUiObj;
     public GameObject stageUiObj;
+    public GameObject soundUiObj;
 
-    public Button pausedBtn; 
+    public Button pausedBtn;
     public bool togle; //일시 정지 토글용
+
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -38,20 +42,28 @@ public class UIManager : MonoBehaviour
         pausedBtn.onClick.AddListener(() => TogglePausedUi());
     }
     public void OpenStartUi() // 시작 화면
+
     {
+        FadeManager.Instance.FadeIn(); // 화면 전환 효과
         startUiObj.SetActive(true);
         mainUiObj.SetActive(false);
         pausedUiObj.SetActive(false);
         stageUiObj.SetActive(false);
-        togle = false; //일시 정지 해제
-        GameManager.Instance.isPaused = false; //일시 정지 해제
+        togle = false; 
+        GameManager.Instance.isPaused = true; //일시 정지 
+        SoundManager.Instance.ApplyBGM(BGMType.Start);
+        SoundManager.Instance.ApplyStartSceneSFX();
     }
 
     public void OpenMainUi() // 메인 화면
     {
+        FadeManager.Instance.FadeIn(); // 화면 전환 효과
         mainUiObj.SetActive(true);
         startUiObj.SetActive(false);
         stageUiObj.SetActive(true);
+        GameManager.Instance.isPaused = false; // 일시 정지 해제
+        SoundManager.Instance.ApplyBGM(BGMType.Main);
+        SoundManager.Instance.ApplyMainSceneSFX();
     }
 
     public void TogglePausedUi() //일시 정지 화면
@@ -65,4 +77,14 @@ public class UIManager : MonoBehaviour
         weaponInventoryUiObj.SetActive(true);
     }
 
+    public void OpenSoundUi()
+    {
+        soundUiObj.SetActive(true); 
+    }
+    public void CloseSoundUi()
+    {
+        soundUiObj.SetActive(false);
+    }
+
 }
+

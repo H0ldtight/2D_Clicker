@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public WeaponDataManager weaponDataManager = new WeaponDataManager();
+
     //플레이어 데이터
     public Character player;
-    //public StatData statData;
+    public StatData statData;
 
     public float gold; //총 골드
     public float point; // 총 포인트
@@ -30,7 +32,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject clickEffectPrefab; //파티클 프리펩
     public Transform effectHolder; //파티클 
-    public Camera effectCamera; // 파티클용 카메라
 
     private void Awake()
     {
@@ -51,8 +52,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
-        //NewPlayerData();
+        NewPlayerData();
         StartAutoAttack();
+        weaponDataManager.Create();
     }
 
     public void CalculateFinalStats()
@@ -72,47 +74,12 @@ public class GameManager : MonoBehaviour
     public void NewPlayerData()
     {
         //플레이어 데이터 생성
-       // player = new Character(statData);
-        //Debug.Log(player);
-
+        player = new Character(statData);
     }
+
     public void LoadPlayerData() //이어 하기시
     {
 
-    }
-
-    public void StartAutoAttack() // 자동공격 시작
-    {
-        if (autoAttackCorutine == null)
-            autoAttackCorutine = StartCoroutine(AutoAttack());
-    }
-    public void StopAutoAttack() // 자동공격 멈춤 일시정지할 때
-    {
-        if(autoAttackCorutine != null)
-        {
-            StopCoroutine(autoAttackCorutine);
-            autoAttackCorutine = null;
-        }
-    }
-    public void UpgradeAutoAttackSpeed(float speedReduction)// 자동공격 업그레이드
-    {
-        autoAttackSpeed = math.max(0.1f, autoAttackSpeed - speedReduction);
-        autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
-
-        StopAutoAttack();  // 코루틴 재시작
-        StartAutoAttack();
-    }
-    private IEnumerator AutoAttack() //딜레이
-    {
-        while (true)
-        {
-            yield return autoAttackDelay;
-            if (!isPaused)
-            {
-                OnClick();
-            }
-            
-        }
     }
 
     public void OnClick()
@@ -125,13 +92,12 @@ public class GameManager : MonoBehaviour
 
             SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
         }
-
     }
 
-    public void SpawnClickEffect(Vector3 screenPosition)  // 파티클 시스템
+    public void SpawnClickEffect(Vector3 screenPosition) //파티클 시스템
     {
-        Vector3 worldPos = effectCamera.ScreenToWorldPoint(screenPosition);
-        worldPos.z = effectCamera.nearClipPlane + 0.1f;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
+        worldPos.z = 0f;
 
         GameObject fx = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity, effectHolder);
         Destroy(fx, 1f);
@@ -158,8 +124,55 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void PlayerUpgrade()
+    // 자동공격 업그레이드
+    public void UpgradeAutoAttackSpeed()
     {
+        player.Upgrade(UpgradeType.AutoAttack);
+        float speedReduction = player.statData.GetStatValue(StatType.ReduceAttackSpeed);
 
+        autoAttackSpeed = math.max(0.1f, autoAttackSpeed - speedReduction);
+        autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
+
+        StopAutoAttack();  // 코루틴 재시작
+        StartAutoAttack();
+    }
+
+    public void StartAutoAttack() // 자동공격 시작
+    {
+        if (autoAttackCorutine == null)
+            autoAttackCorutine = StartCoroutine(AutoAttack());
+    }
+    public void StopAutoAttack() // 자동공격 멈춤 일시정지할 때
+    {
+        if (autoAttackCorutine != null)
+        {
+            StopCoroutine(autoAttackCorutine);
+            autoAttackCorutine = null;
+        }
+    }
+
+    private IEnumerator AutoAttack() //딜레이
+    {
+        while (true)
+        {
+            yield return autoAttackDelay;
+            if (!isPaused)
+            {
+                OnClick();
+            }
+        }
+    }
+
+    //크리티컬 업그레이드
+    public void UpgradeCriticalDamage()
+    {
+        player.Upgrade(UpgradeType.Critical);
+        UIManager.Instance.MainUI.UpdateUI();
+    }
+
+    //골드 획득량 증가 업그레이드
+    public void UpgradeMoreMoney()
+    {
+        player.Upgrade(UpgradeType.PlusGold);
     }
 }
