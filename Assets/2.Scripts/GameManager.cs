@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public WeaponDataManager weaponDataManager = new WeaponDataManager();
 
     //플레이어 데이터
     public Character player;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
         NewPlayerData();
         StartAutoAttack();
+        weaponDataManager.Create();
     }
 
     public void CalculateFinalStats()
