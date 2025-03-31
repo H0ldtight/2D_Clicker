@@ -24,14 +24,9 @@ public class Enemy : MonoBehaviour
 
         if (enemyImage != null && data.enemySprite != null)
         {
-            Debug.Log($"[이미지 설정] {data.enemySprite.name}");
             enemyImage.sprite = data.enemySprite;
         }
-        else
-        {
-            Debug.LogWarning($"[이미지 설정 실패] enemyImage: {enemyImage}, enemySprite: {data.enemySprite}");
-        }
-
+        
         // 테스트용
         StartCoroutine(AutoDamage());
     }
@@ -74,8 +69,7 @@ public class Enemy : MonoBehaviour
             
             float elapsed = 0f;
             float duration = damageFlashDuration;
-            float intensity = 10f;
-            float shakeAmount = 10f;
+            float intensity = 5f; // 흔들림 정도
 
             while (elapsed < duration)
             {
