@@ -51,6 +51,8 @@ public class UIManager : MonoBehaviour
         stageUiObj.SetActive(false);
         togle = false; 
         GameManager.Instance.isPaused = true; //일시 정지 
+        SoundManager.Instance.ApplyBGM(BGMType.Start);
+        SoundManager.Instance.ApplyStartSceneSFX();
     }
 
     public void OpenMainUi() // 메인 화면
@@ -60,6 +62,8 @@ public class UIManager : MonoBehaviour
         startUiObj.SetActive(false);
         stageUiObj.SetActive(true);
         GameManager.Instance.isPaused = false; // 일시 정지 해제
+        SoundManager.Instance.ApplyBGM(BGMType.Main);
+        SoundManager.Instance.ApplyMainSceneSFX();
     }
 
     public void TogglePausedUi() //일시 정지 화면

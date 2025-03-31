@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
+
+public enum BGMType { Start, Main, Boss }
+
+//public enum SFXType { Start,Main,Critical} 크리티컬은 다른 스크립트에서 관리할지 고민 중
+
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
@@ -11,6 +16,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioClip startBgm;
     [SerializeField] private AudioClip mainBgm;
+    [SerializeField] private AudioClip bossBgm;
+
     [SerializeField] private AudioClip defaultSfx; // 효과음
     [SerializeField] private AudioClip startSfx; //시작 효과음
    [SerializeField] private AudioClip mainSfx; //메인 효과음
@@ -18,6 +25,7 @@ public class SoundManager : MonoBehaviour
 
     public void ApplyStartSceneSFX() => ChanageSFX(startSfx); //시작 효과음으로 바로 변경
     public void ApplyMainSceneSFX() => ChanageSFX(mainSfx); // 게임 효과음으로 바로 변경
+    public void ApplyCriticalSFX() => ChanageSFX(criticalSfx); //크리티컬 효과음으로 바로 변경
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -26,6 +34,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         ChangeBGM(startBgm);
+        ChanageSFX (startSfx);
     }
 
     public void SetBGMVolume(float value) //배경음 소리 조절
@@ -60,7 +69,21 @@ public class SoundManager : MonoBehaviour
             defaultSfx = clip;
     }
 
-
+    public void ApplyBGM(BGMType type) // 씬에 맞는 배경음 설정
+    {
+        switch (type)
+        {
+            case BGMType.Start:
+                ChangeBGM(startBgm);
+                break;
+            case BGMType.Main:
+                ChangeBGM(mainBgm);
+                break;
+            case BGMType.Boss:
+                ChangeBGM(bossBgm);
+                break;
+        }
+    }
     public void ChangeBGM(AudioClip clip) // 배경음악 변경
     {
         if (clip == null) return;

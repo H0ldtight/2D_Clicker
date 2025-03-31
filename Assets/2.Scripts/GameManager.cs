@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
     public void NewPlayerData()
     {
         //플레이어 데이터 생성
-       // player = new Character(statData);
-        //Debug.Log(player);
+       //player = new Character(statData);
+       //Debug.Log(player);
 
     }
     public void LoadPlayerData() //이어 하기시
