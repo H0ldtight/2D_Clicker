@@ -15,19 +15,19 @@ public class StageUI : MonoBehaviour
         stageText.text = $"Stage {stage + 1}";
     }
 
-    public void SetEnemy(string name, int count)
+    public void SetEnemy()
     {
-        enemyNameText.text = name;
-        enemyCountText.text = $"x {count}";
-    }
-
-    public void UpdateEnemyCount(int count)
-    {
-        enemyCountText.text = $"x {count}";
+        enemyNameText.text = "";
+        enemyCountText.text = "";
     }
 
     public void UpdateStageText(int stage)
     {
         stageText.text = $"Stage {stage + 1}";
+    }
+    
+    public void UpdateEnemyCount(int count)
+    {
+        enemyCountText.text = $"{count} / {EnemyManager.Instance.TotalCount}";
     }
 }

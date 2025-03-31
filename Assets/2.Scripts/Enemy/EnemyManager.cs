@@ -67,4 +67,6 @@ public class EnemyManager : MonoBehaviour
     {
         return enemyParent != null ? enemyParent.position : Vector3.zero;
     }
+
+    public int TotalCount => currentEnemyData != null ? currentEnemyData.enemyCount : 0;
 }

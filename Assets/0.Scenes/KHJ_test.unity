@@ -828,7 +828,7 @@ MonoBehaviour:
   mainUi: {fileID: 0}
   stageUI: {fileID: 169351843}
   mainUiObj: {fileID: 5538744930524693322, guid: 3de797b4dc0278048b434eabd8a45cdf, type: 3}
-  stageUiObj: {fileID: 3599348447753287684, guid: 0fa3e691bf5754a06b990978068e6816, type: 3}
+  stageUiObj: {fileID: 3602312029486715754, guid: fcd77e66adc4a472b82b1daa2c872e02, type: 3}
 --- !u!1 &2134835980
 GameObject:
   m_ObjectHideFlags: 0

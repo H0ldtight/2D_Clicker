@@ -59,7 +59,7 @@ public class StageManager : MonoBehaviour
         
         // 테스트용
         UIManager_test.Instance.StageUI.SetStage(currentStageIndex);
-        UIManager_test.Instance.StageUI.SetEnemy(stageEnemy.enemyName, stageEnemy.enemyCount);
+        UIManager_test.Instance.StageUI.SetEnemy();
         
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
