@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject clickEffectPrefab; //파티클 프리펩
     public Transform effectHolder; //파티클 
-    public Camera effectCamera; // 파티클용 카메라sw
 
     private void Awake()
     {
@@ -95,10 +94,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SpawnClickEffect(Vector3 screenPosition)  // 파티클 시스템
+    public void SpawnClickEffect(Vector3 screenPosition) //파티클 시스템
     {
-        Vector3 worldPos = effectCamera.ScreenToWorldPoint(screenPosition);
-        worldPos.z = effectCamera.nearClipPlane + 0.1f;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
+        worldPos.z = 0f;
 
         GameObject fx = Instantiate(clickEffectPrefab, worldPos, Quaternion.identity, effectHolder);
         Destroy(fx, 1f);
