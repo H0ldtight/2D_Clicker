@@ -38,20 +38,24 @@ public class UIManager : MonoBehaviour
         pausedBtn.onClick.AddListener(() => TogglePausedUi());
     }
     public void OpenStartUi() // 시작 화면
+
     {
+        FadeManager.Instance.FadeIn(); // 화면 전환 효과
         startUiObj.SetActive(true);
         mainUiObj.SetActive(false);
         pausedUiObj.SetActive(false);
         stageUiObj.SetActive(false);
-        togle = false; //일시 정지 해제
-        GameManager.Instance.isPaused = false; //일시 정지 해제
+        togle = false; 
+        GameManager.Instance.isPaused = true; //일시 정지 
     }
 
     public void OpenMainUi() // 메인 화면
     {
+        FadeManager.Instance.FadeIn(); // 화면 전환 효과
         mainUiObj.SetActive(true);
         startUiObj.SetActive(false);
         stageUiObj.SetActive(true);
+        GameManager.Instance.isPaused = false; // 일시 정지 해제
     }
 
     public void TogglePausedUi() //일시 정지 화면
