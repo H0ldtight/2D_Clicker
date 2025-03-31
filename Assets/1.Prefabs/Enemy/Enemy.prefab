@@ -111,7 +111,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1001523351846009749
 CanvasRenderer:
@@ -319,3 +319,4 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 36164793fd17c41aa9bad63a7d6126cb, type: 2}
   healthBar: {fileID: 8759036992557596469}
   enemyImage: {fileID: 7562303148578803344}
+  damageFlashDuration: 0.1
