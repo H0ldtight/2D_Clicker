@@ -7,5 +7,6 @@ public class BackGroundClick : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("배경이 클릭됨!");
         GameManager.Instance.OnClick();
+        SoundManager.Instance.PlaySFX();
     }
 }
