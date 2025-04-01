@@ -2,12 +2,26 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 //강화할 수 있는 옵션
 public enum UpgradeType
 {
     AutoAttack,
     Critical,
     PlusGold
+}
+
+[Serializable]
+public class Dict<TKey, TValue>
+{
+    public TKey key;
+    public TValue value;
+
+    public Dict(TKey key, TValue value)
+    {
+        this.key = key;
+        this.value = value;
+    }
 }
 
 //업그레이드 옵션 
@@ -35,13 +49,14 @@ public class UpgradeOption
     public StatType statType;
 }
 
-
 public class Character
 {
     //능력치
     public StatData statData;
     //업그레이드 가능한 옵션 딕셔너리<옵션, 증가시켜줄 스텟>
     public Dictionary<UpgradeType, UpgradeOption> upgradeOptions;
+    //직렬화용 데이터
+    public List<Dict<UpgradeType,UpgradeOption>> UO;
 
     //재화
     public int point;
@@ -55,7 +70,11 @@ public class Character
         
         this.statData = statData;
 
+        //딕셔너리 초기화
         upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
+
+        //리스트 초기화
+        UO = new List<Dict<UpgradeType, UpgradeOption>>();
 
         //골드획득량증가 옵션 등록
         upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
@@ -63,6 +82,11 @@ public class Character
         upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 0, 25, StatType.ReduceAttackSpeed));
         //크리티컬 데미지 증가
         upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
+
+        foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
+        {
+            UO.Add(new Dict<UpgradeType, UpgradeOption>(type, upgradeOptions[type]));
+        }
     }
 
     //업그레이드하기
@@ -75,9 +99,13 @@ public class Character
 
         int idx = statData.FindStatIndex(upgrade.statType);
 
+        //업그레이드 진행
         statData.SetStat(idx, upgrade.value);
         upgrade.level++;
         upgrade.requireGold *= 2;
+
+        //직렬화용 데이터 업데이트
+        UO[(int)type].value = upgrade;
 
         UIManager.Instance.MainUI.WeaponUI.UpdateUI(type);
     }
