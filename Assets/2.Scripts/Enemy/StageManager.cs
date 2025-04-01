@@ -47,7 +47,7 @@ public class StageManager : MonoBehaviour
 
     public void StartStage(int stageIndex)
     {
-        UIManager_test.Instance.StageUI.UpdateStageText(currentStageIndex);
+        UIManager.Instance.StageUI.UpdateStageText(currentStageIndex);
         currentStageIndex = stageIndex;
 
         EnemyData stageEnemy = ScriptableObject.CreateInstance<EnemyData>();
@@ -59,14 +59,10 @@ public class StageManager : MonoBehaviour
         // 보상 - 스테이지 올라갈수록 받는 골드, 포인트 증가 // 적 클릭 골드, 적 죽이면 포인트
         int goldReward = baseGoldReward + goldPerStage * stageIndex;
         int pointReward = basePointReward + pointPerStage * stageIndex;
-
-        // StageUI에 스테이지 번호, 적 이름, 적 수 표시
-        // UIManager.Instance.StageUI.SetStage(currentStageIndex);
-        // UIManager.Instance.StageUI.SetEnemy(stageEnemy.enemyName, stageEnemy.enemyCount);
         
-        // 테스트용
-        UIManager_test.Instance.StageUI.SetStage(currentStageIndex);
-        UIManager_test.Instance.StageUI.SetEnemy();
+        // UI
+        UIManager.Instance.StageUI.SetStage(currentStageIndex);
+        UIManager.Instance.StageUI.SetEnemy();
         
         if (allEnemySprites != null && allEnemySprites.Length > 0)
         {
