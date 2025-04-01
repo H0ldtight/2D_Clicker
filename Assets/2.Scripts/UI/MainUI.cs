@@ -28,7 +28,7 @@ public class MainUI : MonoBehaviour
     {
         goldText.text = GameManager.Instance.gold.ToString();
         pointText.text = GameManager.Instance.point.ToString();
-        weaponUI.UpdateUI();
+        //weaponUI.UpdateUI();
     }
 
     public void OpenMessage(string message)

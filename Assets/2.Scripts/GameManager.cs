@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
-        NewPlayerData();
         StartAutoAttack();
         weaponDataManager.Create();
     }
@@ -66,19 +65,29 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
+        player.point = (int)point;
+        player.gold = (int)gold;
         //데이터 저장
         string filePath = Path.Combine(saveDirectory,"PlayerData.json");//파일 경로 및 파일 이름 지정
         string json = JsonUtility.ToJson(player, true); //제이슨 변환 
         File.WriteAllText(filePath, json); // 생성
     }
-    public void NewPlayerData()
+    public void NewPlayerData() // 새로 시작
     {
         //플레이어 데이터 생성
         player = new Character(statData);
+        Debug.Log(player);
     }
 
     public void LoadPlayerData() //이어 하기시
     {
+        string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
+        string json = File.ReadAllText(filePath);  // 읽기
+        Character player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
+        //Debug.Log(player.gold);
+        //Debug.Log(player.point);
+        gold = player.gold;
+        point = player.point;
 
     }
 
