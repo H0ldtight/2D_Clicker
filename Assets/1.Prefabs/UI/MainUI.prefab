@@ -904,7 +904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7166622661223403022
 RectTransform:
   m_ObjectHideFlags: 0
@@ -945,6 +945,7 @@ MonoBehaviour:
   pointText: {fileID: 8080648155795003869}
   WarningMessageText: {fileID: 8560577971276521916}
   WarningMessage: {fileID: 5805610294163915358}
+  weaponUI: {fileID: 0}
 --- !u!1 &5695862297895050577
 GameObject:
   m_ObjectHideFlags: 0

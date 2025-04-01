@@ -75,6 +75,7 @@ public class Character
         int idx = statData.FindStatIndex(upgrade.statType);
 
         statData.SetStat(idx, upgrade.value);
+        upgrade.level++;
         upgrade.requireGold *= 2;
 
         UIManager.Instance.MainUI.WeaponUI.UpdateUI(type);
