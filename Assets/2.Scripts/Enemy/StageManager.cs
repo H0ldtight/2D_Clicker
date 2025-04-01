@@ -42,12 +42,15 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         allEnemySprites = Resources.LoadAll<Sprite>(enemySpriteFolderPath);
+        UIManager.Instance.StageUI.SetEnemy(); // 스테이지 텍스트 초기화
         StartStage(currentStageIndex);
     }
 
     public void StartStage(int stageIndex)
     {
+        //UI
         UIManager.Instance.StageUI.UpdateStageText(currentStageIndex);
+
         currentStageIndex = stageIndex;
 
         EnemyData stageEnemy = ScriptableObject.CreateInstance<EnemyData>();
@@ -60,10 +63,8 @@ public class StageManager : MonoBehaviour
         int goldReward = baseGoldReward + goldPerStage * stageIndex;
         int pointReward = basePointReward + pointPerStage * stageIndex;
         
-        // UI
-        UIManager.Instance.StageUI.SetStage(currentStageIndex);
-        UIManager.Instance.StageUI.SetEnemy();
-        
+
+
         if (allEnemySprites != null && allEnemySprites.Length > 0)
         {
             stageEnemy.enemySprite = allEnemySprites[Random.Range(0, allEnemySprites.Length)];
