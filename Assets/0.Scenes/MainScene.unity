@@ -654,6 +654,7 @@ MonoBehaviour:
   pausedUiObj: {fileID: 7982918016007663637}
   stageUiObj: {fileID: 2593705911532996902}
   soundUiObj: {fileID: 1358327801}
+  enemyObj: {fileID: 421058980}
   pausedBtn: {fileID: 835931418}
   togle: 0
 --- !u!1 &121692634
