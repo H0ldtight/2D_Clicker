@@ -35,6 +35,7 @@ public class UpgradeOption
     public StatType statType;
 }
 
+
 public class Character
 {
     //능력치
@@ -57,11 +58,11 @@ public class Character
         upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
 
         //골드획득량증가 옵션 등록
-        upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(30, 1, 25, StatType.ExtraGold));
+        upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
         //자동공격 몇초에 1대씩 때릴건지
-        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 1, 25, StatType.ReduceAttackSpeed));
+        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 0, 25, StatType.ReduceAttackSpeed));
         //크리티컬 데미지 증가
-        upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 1, 25, StatType.Criticaldamage));
+        upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
     }
 
     //업그레이드하기

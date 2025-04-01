@@ -20,10 +20,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int countPerStage = 1;
     
     [Header("Reward Settings")]
-    [SerializeField] private int baseGoldReward = 1;
-    [SerializeField] private int goldPerStage = 2; // 스테이지마다 골드 보상 증가
-    [SerializeField] private int basePointReward = 1;
-    [SerializeField] private int pointPerStage = 1; // 스테이지마다 포인트 보상 증가
+    [SerializeField] private int basePointReward = 10;
+    [SerializeField] private int pointPerStage = 5; // 스테이지마다 포인트 보상 증가
 
     [Header("Enemy Image Pool")]
     [SerializeField] private string enemySpriteFolderPath = "EnemySprites";
@@ -59,11 +57,9 @@ public class StageManager : MonoBehaviour
         stageEnemy.maxHealth = baseHealth + healthPerStage * stageIndex;
         stageEnemy.enemyCount = baseCount + countPerStage * stageIndex;
 
-        // 보상 - 스테이지 올라갈수록 받는 골드, 포인트 증가 // 적 클릭 골드, 적 죽이면 포인트
-        int goldReward = baseGoldReward + goldPerStage * stageIndex;
+        // 보상 - 적 죽이면 포인트
         int pointReward = basePointReward + pointPerStage * stageIndex;
-        
-
+        EnemyManager.Instance.SetPointReward(pointReward);
 
         if (allEnemySprites != null && allEnemySprites.Length > 0)
         {
