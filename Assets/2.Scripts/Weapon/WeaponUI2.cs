@@ -7,13 +7,15 @@ public class WeaponUI2 : MonoBehaviour
 {
 
     public static WeaponUI2 Instance { get; private set; }
-    public List<WeaponData> Weapons { get; private set; } = new List<WeaponData>();
+    private List<WeaponData> weapons = new List<WeaponData>();
+    public List<WeaponSlot> weaponSlots = new List<WeaponSlot>();
 
     public TextMeshProUGUI weaponName;
     public TextMeshProUGUI weaponLv;
     public TextMeshProUGUI weaponAtk;
     public TextMeshProUGUI weaponCrit;
     public Image icon;
+
 
     public GameObject WeaponInventory;
 
@@ -33,10 +35,31 @@ public class WeaponUI2 : MonoBehaviour
     void Start()
     {
         WeaponInventory.SetActive(false);
-        Weapons = new List<WeaponData>();
-        SetPlayerWeaponData(Weapons);
+
+        SetEquippedWeapons();
+        WeaponSlotUI.Instance.SetWeapons(weapons);
     }
 
+    public void SetWeapons(List<WeaponData> weaponList)
+    {
+        weapons = weaponList;
+    }
+    public void SetWeaponSlots()
+    {
+        for (int i = 0; i < weaponSlots.Count && i < weapons.Count; i++)
+        {
+            if (weaponSlots[i] == null)
+            {
+                Debug.LogWarning($"WeaponSlot at index {i} is null!");
+            }
+            else
+            {
+                weaponSlots[i].SetWeapon(weapons[i]);
+            }
+        }
+    }
+
+    // 무기 데이터를 갱신하는 메서드
     public void SetWeaponData(WeaponData weapon)
     {
         weaponName.text = weapon.weaponName;
@@ -46,36 +69,31 @@ public class WeaponUI2 : MonoBehaviour
         weaponCrit.text = weapon.criticalPercentage.ToString("N2") + "%";
     }
 
-    public void SetPlayerWeaponData(List<WeaponData> weaponList)
+    public void SetEquippedWeapons()
     {
-        foreach (var weapon in weaponList)
+        for (int i = 0; i < weapons.Count; i++)
         {
-            if (weapon.isPurchased && weapon.isEquiped)
+            if (weapons[i].isPurchased && weapons[i].isEquiped)
             {
-                SetWeaponData(weapon);
+                SetWeaponData(weapons[i]);
             }
         }
     }
 
-    public void UpdateAllWeaponSlots()
-    {
-        // 모든 WeaponSlot의 데이터를 갱신
-        var weaponSlots = WeaponInventory.GetComponentsInChildren<WeaponSlot>();
-        foreach (var slot in weaponSlots)
-        {
-            slot.SetWeaponInventoryData();
-        }
-    }
+    // 플레이어의 무기 데이터를 갱신하는 메서드
 
+
+    // WeaponInventory 활성화
     public void WeaponInventoryPopUp()
     {
-        // WeaponInventory 활성화
         WeaponInventory.SetActive(true);
+        SetWeaponSlots();  // UI가 활성화된 후에 슬롯을 업데이트
     }
 
+    // WeaponInventory 비활성화
     public void WeaponInventoryClose()
     {
-        // WeaponInventory 비활성화
         WeaponInventory.SetActive(false);
+        SetEquippedWeapons();
     }
 }
