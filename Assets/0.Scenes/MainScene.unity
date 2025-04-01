@@ -9142,7 +9142,7 @@ GameObject:
   - component: {fileID: 4546658361787151842}
   - component: {fileID: 4420477557272244398}
   m_Layer: 5
-  m_Name: WeaponUI 1
+  m_Name: PlayerStatusUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
