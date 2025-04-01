@@ -10583,6 +10583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainUi: {fileID: 2146192425}
+  stageUI: {fileID: 0}
   startUiObj: {fileID: 786805436}
   mainUiObj: {fileID: 2146192423}
   weaponInventoryUiObj: {fileID: 231043146}
