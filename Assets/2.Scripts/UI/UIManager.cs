@@ -73,9 +73,11 @@ public class UIManager : MonoBehaviour
 
     public void TogglePausedUi() //일시 정지 화면
     {
-        GameManager.Instance.isPaused= !GameManager.Instance.isPaused;
+
+        GameManager.Instance.isPaused = !GameManager.Instance.isPaused;
         togle = !togle;
         pausedUiObj.SetActive(togle);
+        enemyObj.SetActive(!togle);
     }
     public void OpenWeaponInventoryUi() // 장비 인벤토리 화면
     {
