@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
   - stat: 0
-    totalValue: 0
+    totalValue: 1.8
   - stat: 1
-    totalValue: 0
+    totalValue: 550
   - stat: 2
-    totalValue: 0
+    totalValue: 240
   - stat: 3
     totalValue: 0
