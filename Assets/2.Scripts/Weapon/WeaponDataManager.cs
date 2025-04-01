@@ -1,14 +1,29 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class WeaponDataManager
+public class WeaponDataManager : MonoBehaviour
 {
-
+    public static WeaponDataManager Instance { get; private set; }
+    public List<WeaponData> Weapons { get; private set; }
     static string folderPath => Path.Combine(Application.dataPath, "7.WeaponData");
     static string fileName = "WeaponData.csv";
     string filePath => Path.Combine(folderPath, fileName);
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // 씬 전환 시에도 객체가 파괴되지 않도록 설정
+        }
+        else
+        {
+            Destroy(gameObject);  // 이미 인스턴스가 존재하면 파괴
+        }
+        Create();
+    }
     public void Create()
     {
         Debug.Log("Create 실행.");
@@ -25,8 +40,8 @@ public class WeaponDataManager
         }
 
         List<WeaponData> weapons = LoadWeapons();
-        //// UI와 연결해서 무기 리스트 전달
-        //WeaponUI2.Instance.SetPlayerWeaponData(weapons);
+        // UI와 연결해서 무기 리스트 전달
+        WeaponUI2.Instance.SetWeapons(weapons);
     }
 
     public void CreateDefaultCsv()
