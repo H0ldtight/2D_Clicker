@@ -34,6 +34,7 @@ public class WeaponUI2 : MonoBehaviour
     {
         WeaponInventory.SetActive(false);
         Weapons = new List<WeaponData>();
+        SetPlayerWeaponData(Weapons);
     }
 
     public void SetWeaponData(WeaponData weapon)

@@ -26,7 +26,7 @@ public class WeaponDataManager
 
         List<WeaponData> weapons = LoadWeapons();
         //// UI와 연결해서 무기 리스트 전달
-        //WeaponUI2.Instance.SetPlayerWeaponData(weapons);
+        WeaponUI2.Instance.SetPlayerWeaponData(weapons);
     }
 
     public void CreateDefaultCsv()
