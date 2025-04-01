@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
         if(!isPaused)
         {
             gold += finalGoldBonus;
-            point += 2;
             UIManager.Instance.MainUI.UpdateUI();
 
             SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
@@ -186,4 +185,8 @@ public class GameManager : MonoBehaviour
         CalculateFinalStats();
     }
 
+    public void AddPoint(int amount)
+    {
+        point += amount;
+    }
 }
