@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public int CurrentHealth => currentHealth;
     public int MaxHealth => data.maxHealth;
     
-    [SerializeField] private Image enemyImage;
+    [SerializeField] private SpriteRenderer enemyImage;
     [SerializeField] private float damageFlashDuration = 0.1f;
 
 
@@ -27,8 +27,8 @@ public class Enemy : MonoBehaviour
             enemyImage.sprite = data.enemySprite;
         }
         
-        // 테스트용
-        StartCoroutine(AutoDamage());
+        // // 테스트용
+        // StartCoroutine(AutoDamage());
     }
 
     private void TakeDamage(int damage)
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
     {
         if (enemyImage != null)
         {
-            Vector3 originalPos = enemyImage.rectTransform.localPosition;
+            Vector3 originalPos = enemyImage.transform.localPosition;
             
             float elapsed = 0f;
             float duration = damageFlashDuration;
@@ -75,23 +75,23 @@ public class Enemy : MonoBehaviour
             {
                 float offsetX = Random.Range(-1f, 1f) * intensity;
                 float offsetY = Random.Range(-1f, 1f) * intensity;
-                enemyImage.rectTransform.localPosition = originalPos + new Vector3(offsetX, offsetY, 0);
+                enemyImage.transform.localPosition = originalPos + new Vector3(offsetX, offsetY, 0);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            enemyImage.rectTransform.localPosition = originalPos;
+            enemyImage.transform.localPosition = originalPos;
         }
     }
 
     
-    // 테스트용
-    private IEnumerator AutoDamage()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.1f);
-            TakeDamage(20);
-        }
-    }
+    // // 테스트용
+    // private IEnumerator AutoDamage()
+    // {
+    //     while (true)
+    //     {
+    //         yield return new WaitForSeconds(0.1f);
+    //         TakeDamage(20);
+    //     }
+    // }
 }
