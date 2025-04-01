@@ -51,11 +51,8 @@ public class WeaponUI : MonoBehaviour
             default:
                 return;
         }
-
-        gold.text = $"{GameManager.Instance.player.upgradeOptions[type].requireGold}";
+        gold.text = $"{GameManager.Instance.player.upgradeOptions[type].requireGold} G";
         level.text = $"{GameManager.Instance.player.upgradeOptions[type].level}";
         value.text = $"{GameManager.Instance.player.upgradeOptions[type].value}";
     }
-
-
 }
