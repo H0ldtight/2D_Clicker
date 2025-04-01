@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Character player;
     public StatData statData;
 
+    public int autoAttackDamage = 10; // 자동 공격 데미지 Test 용도
     public int gold; //총 골드
     public int point; // 총 포인트
 
@@ -157,7 +158,19 @@ public class GameManager : MonoBehaviour
             autoAttackCorutine = null;
         }
     }
-
+    private void AutoAttackEnemy()
+    {
+        Enemy target = FindObjectOfType<Enemy>();
+        if (target != null)
+        {
+            target.TakeDamage(autoAttackDamage); 
+            SoundManager.Instance.PlaySFX();
+            gold += finalGoldBonus;
+            UIManager.Instance.MainUI.UpdateUI();
+            GameObject fx = Instantiate(clickEffectPrefab, target.transform.position, Quaternion.identity, effectHolder);
+            Destroy(fx, 1f);
+        }
+    }
     private IEnumerator AutoAttack() //딜레이
     {
         while (true)
@@ -165,7 +178,7 @@ public class GameManager : MonoBehaviour
             yield return autoAttackDelay;
             if (!isPaused)
             {
-                OnClick();
+                AutoAttackEnemy();
             }
         }
     }
