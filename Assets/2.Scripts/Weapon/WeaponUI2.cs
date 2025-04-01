@@ -35,14 +35,12 @@ public class WeaponUI2 : MonoBehaviour
     void Start()
     {
         WeaponInventory.SetActive(false);
-
-        SetEquippedWeapons();
-        // WeaponSlotUI.Instance.SetWeapons(weapons);
     }
 
     public void SetWeapons(List<WeaponData> weaponList)
     {
         weapons = weaponList;
+        SetEquippedWeapons();
     }
     public void SetWeaponSlots()
     {

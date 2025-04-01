@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine;
 public class WeaponDataManager : MonoBehaviour
 {
     public static WeaponDataManager Instance { get; private set; }
-    public List<WeaponData> Weapons { get; private set; }
     static string folderPath => Path.Combine(Application.dataPath, "7.WeaponData");
     static string fileName = "WeaponData.csv";
     string filePath => Path.Combine(folderPath, fileName);
@@ -41,9 +41,15 @@ public class WeaponDataManager : MonoBehaviour
 
         List<WeaponData> weapons = LoadWeapons();
         // UI와 연결해서 무기 리스트 전달
-        WeaponUI2.Instance.SetWeapons(weapons);
+        StartCoroutine(DelayedSetWeapons(weapons));
     }
 
+    private IEnumerator DelayedSetWeapons(List<WeaponData> weapons)
+    {
+        // WeaponUI2 인스턴스가 초기화될 때까지 기다린다.
+        yield return new WaitUntil(() => WeaponUI2.Instance != null);
+        WeaponUI2.Instance.SetWeapons(weapons);
+    }
     public void CreateDefaultCsv()
     {
         List<WeaponData> defaultWeapons = new List<WeaponData>
