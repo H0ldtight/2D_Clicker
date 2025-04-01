@@ -51,14 +51,18 @@ public class EnemyManager : MonoBehaviour
 
     }
     
+    public void SetPointReward(int reward)
+    {
+        pointReward = reward;
+    }
+    
     public void OnEnemyDied(Enemy enemy)
     {
         // 적처치 보상관련
-        // GameManager.Instance.AddPoint(pointReward);
+        GameManager.Instance.AddPoint(pointReward);
 
         Destroy(enemy.gameObject);
         
-        //UIManager_test.Instance.StageUI.UpdateEnemyCount(remainCount);
         Debug.Log("Enemy Died");
         
         SpawnNextEnemy();

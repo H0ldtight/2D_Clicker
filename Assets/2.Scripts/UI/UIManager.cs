@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject pausedUiObj;
     public GameObject stageUiObj;
     public GameObject soundUiObj;
+    public GameObject enemyObj;
 
     public Button pausedBtn;
     public bool togle; //일시 정지 토글용
@@ -48,6 +49,7 @@ public class UIManager : MonoBehaviour
     {
         FadeManager.Instance.FadeIn(); // 화면 전환 효과
         startUiObj.SetActive(true);
+        enemyObj.SetActive(false);
         mainUiObj.SetActive(false);
         pausedUiObj.SetActive(false);
         stageUiObj.SetActive(false);
@@ -61,8 +63,9 @@ public class UIManager : MonoBehaviour
     {
         FadeManager.Instance.FadeIn(); // 화면 전환 효과
         mainUiObj.SetActive(true);
-        startUiObj.SetActive(false);
+        enemyObj.SetActive(true);
         stageUiObj.SetActive(true);
+        startUiObj.SetActive(false);
         GameManager.Instance.isPaused = false; // 일시 정지 해제
         //SoundManager.Instance.ApplyBGM(BGMType.Main);
         SoundManager.Instance.ApplyMainSceneSFX();
@@ -70,9 +73,11 @@ public class UIManager : MonoBehaviour
 
     public void TogglePausedUi() //일시 정지 화면
     {
-        GameManager.Instance.isPaused= !GameManager.Instance.isPaused;
+
+        GameManager.Instance.isPaused = !GameManager.Instance.isPaused;
         togle = !togle;
         pausedUiObj.SetActive(togle);
+        enemyObj.SetActive(!togle);
     }
     public void OpenWeaponInventoryUi() // 장비 인벤토리 화면
     {
