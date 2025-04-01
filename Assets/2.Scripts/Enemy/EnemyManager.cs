@@ -36,6 +36,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnNextEnemy()
     {
+        UIManager.Instance.StageUI.UpdateEnemyCount(remainCount);
         if (remainCount <= 0)
         {
             StageManager.Instance.OnStageCleared();
@@ -47,6 +48,7 @@ public class EnemyManager : MonoBehaviour
         enemy.data = currentEnemyData;
         
         remainCount--;
+
     }
     
     public void OnEnemyDied(Enemy enemy)
@@ -56,7 +58,7 @@ public class EnemyManager : MonoBehaviour
 
         Destroy(enemy.gameObject);
         
-        UIManager_test.Instance.StageUI.UpdateEnemyCount(remainCount);
+        //UIManager_test.Instance.StageUI.UpdateEnemyCount(remainCount);
         Debug.Log("Enemy Died");
         
         SpawnNextEnemy();

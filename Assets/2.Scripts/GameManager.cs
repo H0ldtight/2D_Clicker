@@ -13,12 +13,12 @@ public class GameManager : MonoBehaviour
     public Character player;
     public StatData statData;
 
-    public float gold; //총 골드
-    public float point; // 총 포인트
+    public int gold; //총 골드
+    public int point; // 총 포인트
 
-    public float finalAttackPower; //최종 데미지
-    public float finalCritDamage; // 최종 크리티컬 데미지
-    public float finalGoldBonus = 1; // 최종 골드 보너스
+    public int finalAttackPower; //최종 데미지
+    public int finalCritDamage; // 최종 크리티컬 데미지
+    public int finalGoldBonus = 5; // 최종 골드 보너스
 
     public bool isPaused; // 일시정지
 
@@ -55,15 +55,15 @@ public class GameManager : MonoBehaviour
 
     public void CalculateFinalStats()
     {
-        //finalAttackPower +=
-        //finalCritDamage +=
-        //finalGoldBonus +=
+        //finalAttackPower += //무기 공격력
+        //finalCritDamage = finalAttackPower * player.statData.GetStatValue(StatType.Criticaldamage);  무기 공격력에서 곱해줌
+        finalGoldBonus = (int)player.statData.GetStatValue(StatType.ExtraGold);
     }
 
     public void SaveData()
     {
-        player.point = (int)point;
-        player.gold = (int)gold;
+        player.point = point;
+        player.gold = gold;
         //데이터 저장
         string filePath = Path.Combine(saveDirectory,"PlayerData.json");//파일 경로 및 파일 이름 지정
         string json = JsonUtility.ToJson(player, true); //제이슨 변환 
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         if(!isPaused)
         {
             gold += finalGoldBonus;
-            point += 2f;
+            point += 2;
             UIManager.Instance.MainUI.UpdateUI();
 
             SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         Destroy(fx, 1f);
     }
 
-    public bool UseGold(float usegold) // 타입을 받아오면 하나로 줄일 수 있음.
+    public bool UseGold(int usegold) // 타입을 받아오면 하나로 줄일 수 있음.
     {
         if(gold>= usegold)
         {
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.MainUI.OpenMessage("골드가 부족합니다.");
         return false;
     }
-    public bool UsePoint(float usepoint)// 타입을 받아오면 하나로 줄일 수 있음.
+    public bool UsePoint(int usepoint)// 타입을 받아오면 하나로 줄일 수 있음.
     {
         if(point >= usepoint)
         {
@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
     {
         player.Upgrade(UpgradeType.PlusGold);
         UIManager.Instance.MainUI.UpdateUI();
+        CalculateFinalStats();
     }
 
 }
