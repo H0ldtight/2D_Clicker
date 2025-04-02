@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 // 실제 적의 출현과 관리
 public class EnemyManager : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class EnemyManager : MonoBehaviour
     private int pointReward;
 
     [SerializeField] private Transform enemyParent; // 적 프리팹의 부모
-
-    private Enemy currentEnemy;
+    
+    public Enemy currentEnemy;
     public Enemy CurrentEnemy => currentEnemy;
 
     private void Awake()
@@ -28,14 +29,14 @@ public class EnemyManager : MonoBehaviour
         Instance = this;
     }
 
-    public void SpawnEnemy(EnemyData data)
+    public void SpawnEnemy(EnemyData data, GameObject prefab)
     {
         currentEnemyData = data;
         remainCount = data.enemyCount;
-        SpawnNextEnemy();
+        SpawnNextEnemy(prefab);
     }
 
-    private void SpawnNextEnemy()
+    private void SpawnNextEnemy(GameObject prefab)
     {
         UIManager.Instance.StageUI.UpdateEnemyCount(remainCount);
         if (remainCount <= 0)
@@ -44,10 +45,12 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
+        // 프리팹 가저오기
         GameObject enemyObj = Instantiate(enemyPrefab, GetSpawnPosition(), Quaternion.identity, enemyParent);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.data = currentEnemyData;
-
+        // 적 데이터 가져오기
+        enemy.init(currentEnemyData);
+        
         currentEnemy = enemy; //현재 적 저장 게임 매니저 활용 목적
         remainCount--;
 
@@ -68,7 +71,7 @@ public class EnemyManager : MonoBehaviour
         GameManager.Instance.AddPoint(pointReward);
 
         Destroy(enemy.gameObject);
-        SpawnNextEnemy();
+        SpawnNextEnemy(enemyPrefab);
     }
     
     // 적 스폰 위치 지정

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 // 게임의 진행 흐름, 난이도 및 보상 세팅
@@ -24,8 +25,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private int pointPerStage = 5; // 스테이지마다 포인트 보상 증가
 
     [Header("Enemy Image Pool")]
-    [SerializeField] private string enemySpriteFolderPath = "EnemySprites";
-    private Sprite[] allEnemySprites;
+    [SerializeField] private string enemyPrefabsFolderPath = "EnemyPrefabs";
+    private GameObject[] allEnemyPrefabs;
 
     private void Awake()
     {
@@ -39,7 +40,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        allEnemySprites = Resources.LoadAll<Sprite>(enemySpriteFolderPath);
+        allEnemyPrefabs = Resources.LoadAll<GameObject>("EnemyPrefabs"); // 적 불러오기
         UIManager.Instance.StageUI.SetEnemy(); // 스테이지 텍스트 초기화
         StartStage(currentStageIndex);
     }
@@ -60,13 +61,14 @@ public class StageManager : MonoBehaviour
         // 보상 - 적 죽이면 포인트
         int pointReward = basePointReward + pointPerStage * stageIndex;
         EnemyManager.Instance.SetPointReward(pointReward);
-
-        if (allEnemySprites != null && allEnemySprites.Length > 0)
+        
+        // 적 랜덤 지정
+        if (allEnemyPrefabs != null && allEnemyPrefabs.Length > 0)
         {
-            stageEnemy.enemySprite = allEnemySprites[Random.Range(0, allEnemySprites.Length)];
+            GameObject selectedPrefab = allEnemyPrefabs[Random.Range(0, allEnemyPrefabs.Length)];
+            EnemyManager.Instance.SpawnEnemy(stageEnemy, selectedPrefab);
         }
         
-        EnemyManager.Instance.SpawnEnemy(stageEnemy);
     }
 
     public void OnStageCleared()

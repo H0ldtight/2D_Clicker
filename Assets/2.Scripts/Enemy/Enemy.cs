@@ -19,19 +19,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer enemyImage;
     [SerializeField] private float damageFlashDuration = 0.1f;
 
-
-    private void Start()
-    {
-        currentHealth = MaxHealth;
-
-        if (enemyImage != null && data.enemySprite != null)
-        {
-            enemyImage.sprite = data.enemySprite;
-        }
-        UpdatehealthBar();
-        // // 테스트용
-        // StartCoroutine(AutoDamage());
-    }
+    [SerializeField] private Animator animator;
+    [SerializeField] private float deathAnimDuration = 10f; // 애니메이션 시간
 
     public void TakeDamage(int damage)
     {
@@ -39,15 +28,37 @@ public class Enemy : MonoBehaviour
         
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0); // 음수 체력 삭제
+        Debug.Log(currentHealth + "/" + damage);
+        
+        UpdatehealthBar();
         
         if (currentHealth <= 0)
         {
-            EnemyManager.Instance.OnEnemyDied(this);
+            if (animator != null)
+            {
+                animator.SetTrigger("IsDead");
+            }
+            StartCoroutine(DieAfterDelay(deathAnimDuration));
         }
-        else
+    }
+
+    public void init(EnemyData data)
+    {
+        this.data = data;
+        currentHealth = MaxHealth;
+        UpdatehealthBar();
+        
+        if (enemyImage != null && data.enemySprite != null)
         {
-            UpdatehealthBar();
+            enemyImage.sprite = data.enemySprite;
         }
+    }
+    
+    private IEnumerator DieAfterDelay(float delay)
+    {
+        EnemyManager.Instance.currentEnemy = null;
+        yield return new WaitForSeconds(delay);
+        EnemyManager.Instance.OnEnemyDied(this);
     }
 
     private void UpdatehealthBar()
@@ -85,15 +96,5 @@ public class Enemy : MonoBehaviour
             enemyImage.transform.localPosition = originalPos;
         }
     }
-
     
-    // // 테스트용
-    // private IEnumerator AutoDamage()
-    // {
-    //     while (true)
-    //     {
-    //         yield return new WaitForSeconds(0.1f);
-    //         TakeDamage(20);
-    //     }
-    // }
 }
