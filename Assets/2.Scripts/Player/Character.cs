@@ -11,6 +11,7 @@ public enum UpgradeType
     PlusGold
 }
 
+//데이터 직렬화용 딕셔너리 클래스
 [Serializable]
 public class Dict<TKey, TValue>
 {
@@ -54,9 +55,11 @@ public class Character
     //능력치
     public StatData statData;
     //업그레이드 가능한 옵션 딕셔너리<옵션, 증가시켜줄 스텟>
-    public Dictionary<UpgradeType, UpgradeOption> upgradeOptions;
-    //직렬화용 데이터
+    public Dictionary<UpgradeType, UpgradeOption> upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
+
+    //직렬화용 업그레이드 데이터, 스텟 데이터
     public List<Dict<UpgradeType,UpgradeOption>> UO;
+    public SerializableStatData SD;
 
     //재화
     public int point;
@@ -73,8 +76,9 @@ public class Character
         //딕셔너리 초기화
         upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
 
-        //리스트 초기화
+        //직렬화 데이터 초기화
         UO = new List<Dict<UpgradeType, UpgradeOption>>();
+        SD = new SerializableStatData();
 
         //골드획득량증가 옵션 등록
         upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
@@ -83,9 +87,14 @@ public class Character
         //크리티컬 데미지 증가
         upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
 
+        //직렬화 데이터 리스트 초기화
         foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
         {
             UO.Add(new Dict<UpgradeType, UpgradeOption>(type, upgradeOptions[type]));
+        }
+        foreach (Stat stat in statData.stats)
+        {
+            SD.stats.Add(stat);
         }
     }
 
@@ -106,16 +115,26 @@ public class Character
 
         //직렬화용 데이터 업데이트
         UO[(int)type].value = upgrade;
-
         UIManager.Instance.MainUI.WeaponUI.UpdateUI(type);
+        foreach(Stat stat in SD.stats)
+        {
+            stat.totalValue = statData.GetStatValue(upgrade.statType);
+        }
     }
 
     //딕셔너리에 직렬화 전달해주는 역할
-    public void LoadDict()
+    public void LoadValue()
     {
+        upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
+        Debug.Log(UO);
+        Debug.Log(SD);
         foreach (Dict<UpgradeType, UpgradeOption> dic in UO)
         {
-            upgradeOptions[dic.key] = dic.value;
+            upgradeOptions.Add(dic.key, dic.value);
+        }
+        foreach (Stat stat in SD.stats)
+        {
+            statData.SetStat(statData.FindStatIndex(stat.stat), stat.totalValue);
         }
     }
 }
