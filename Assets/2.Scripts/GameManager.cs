@@ -158,7 +158,6 @@ public class GameManager : MonoBehaviour
                 SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
             }
         }
-
     }
     private IEnumerator AutoAttack() //딜레이
     {
@@ -196,9 +195,8 @@ public class GameManager : MonoBehaviour
     //새로 시작하기
     public void NewPlayerData()
     {
-        //StatData statDataCopy = ScriptableObject.Instantiate(statData);
-        //player = new Character(statDataCopy);
-        player = new Character(statData);
+        StatData statDataCopy = ScriptableObject.Instantiate(statData);
+        player = new Character(statDataCopy);
     }
 
     //데이터 저장하기
@@ -218,7 +216,6 @@ public class GameManager : MonoBehaviour
     {
         string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
 
-
         if (!File.Exists(filePath))
         {
             Debug.LogWarning("There is no SaveFile.");
@@ -227,7 +224,6 @@ public class GameManager : MonoBehaviour
         }
         string json = File.ReadAllText(filePath);  // 읽기
         player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
-        
         player.LoadValue();
         gold = player.gold;
         point = player.point;

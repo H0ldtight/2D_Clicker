@@ -73,19 +73,13 @@ public class Character
         
         this.statData = statData;
 
-        //딕셔너리 초기화
-        upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
+        //플레이어스텟 초깃값
+        for (int i = 0; i < (int)StatType.Count; i++)
+        {
+            this.statData.SetStat(i, 0);
+        }
 
-        //직렬화 데이터 초기화
-        UO = new List<Dict<UpgradeType, UpgradeOption>>();
-        SD = new SerializableStatData();
-
-        //골드획득량증가 옵션 등록
-        upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
-        //자동공격 몇초에 1대씩 때릴건지
-        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 0, 25, StatType.ReduceAttackSpeed));
-        //크리티컬 데미지 증가
-        upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
+        Set();
 
         //직렬화 데이터 리스트 초기화
         foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
@@ -122,12 +116,30 @@ public class Character
         }
     }
 
+    public void Set()
+    {
+        //딕셔너리 초기화
+        upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
+
+        //직렬화 데이터 초기화
+        UO = new List<Dict<UpgradeType, UpgradeOption>>();
+        SD = new SerializableStatData();
+
+        //골드획득량증가 옵션 등록
+        upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
+        //자동공격 몇초에 1대씩 때릴건지
+        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 0, 25, StatType.ReduceAttackSpeed));
+        //크리티컬 데미지 증가
+        upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
+    }
+
     //딕셔너리에 직렬화 전달해주는 역할
     public void LoadValue()
-    {
+    { 
         upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
-        Debug.Log(UO);
-        Debug.Log(SD);
+        statData = ScriptableObject.CreateInstance<StatData>();
+        statData.Make();
+
         foreach (Dict<UpgradeType, UpgradeOption> dic in UO)
         {
             upgradeOptions.Add(dic.key, dic.value);
