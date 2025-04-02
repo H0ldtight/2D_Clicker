@@ -78,8 +78,6 @@ public class WeaponUI2 : MonoBehaviour
         }
     }
 
-    // 플레이어의 무기 데이터를 갱신하는 메서드
-
 
     // WeaponInventory 활성화
     public void WeaponInventoryPopUp()
