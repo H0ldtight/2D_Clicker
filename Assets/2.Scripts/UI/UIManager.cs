@@ -82,17 +82,17 @@ public class UIManager : MonoBehaviour
     public void OpenWeaponInventoryUi() // 장비 인벤토리 화면
     {
         weaponInventoryUiObj.SetActive(true);
+        enemyObj.SetActive(false);
     }
 
     public void OpenSoundUi()
     {
         soundUiObj.SetActive(true);
-        enemyObj.SetActive(false);
+
     }
     public void CloseSoundUi()
     {
         soundUiObj.SetActive(false);
-        enemyObj.SetActive(true);
     }
 
 }

@@ -2459,6 +2459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statData: {fileID: 11400000, guid: e4a1be10098e6ee4e934778675a5155f, type: 2}
+  autoAttackDamage: 10
   gold: 0
   point: 0
   finalAttackPower: 0
@@ -3034,6 +3035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7329067107323729596, guid: f6092f0cdbe84400dac506e78b8ac78d, type: 3}
+  currentEnemyData: {fileID: 0}
   enemyParent: {fileID: 421058981}
 --- !u!4 &1140610576
 Transform:
