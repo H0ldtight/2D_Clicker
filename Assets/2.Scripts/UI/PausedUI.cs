@@ -12,7 +12,7 @@ public class PausedUI : MonoBehaviour
     private void Start()
     {
         startBotton.onClick.AddListener(() => UIManager.Instance.OpenStartUi());
-        continueButton.onClick.AddListener(() => UIManager.Instance.TogglePausedUi());
+        continueButton.onClick.AddListener(() => LoadData());
         saveButton.onClick.AddListener(() => SaveData());
 
     }
@@ -20,8 +20,13 @@ public class PausedUI : MonoBehaviour
     {
         UIManager.Instance.TogglePausedUi();
         GameManager.Instance.SaveData();
-        UIManager.Instance.MainUI.OpenMessage("저장이 완료 되었습니다.");
-        
-        
+        UIManager.Instance.MainUI.OpenMessage("저장이 완료 되었습니다.");   
+    }
+
+    public void LoadData()
+    {
+        UIManager.Instance.TogglePausedUi();
+        GameManager.Instance.LoadPlayerData();
+        UIManager.Instance.MainUI.OpenMessage("로드가 완료 되었습니다.");
     }
 }

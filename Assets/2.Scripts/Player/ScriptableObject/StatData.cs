@@ -43,11 +43,16 @@ public class StatData : ScriptableObject
     {
         if (stats.Length <= (int)StatType.Count)
         {
-            stats = new Stat[(int)StatType.Count];
-            for (int i = 0; i < stats.Length; i++)
-            {
-                stats[i] = new Stat((StatType)i);
-            }
+            Make();
+        }
+    }
+
+    public void Make()
+    {
+        stats = new Stat[(int)StatType.Count];
+        for (int i = 0; i < stats.Length; i++)
+        {
+            stats[i] = new Stat((StatType)i);
         }
     }
 
