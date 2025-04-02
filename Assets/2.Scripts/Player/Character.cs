@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//강화할 수 있는 옵션
+/// <summary>
+/// 강화할 수 있는 옵션
+/// </summary>
 public enum UpgradeType
 {
     AutoAttack,
@@ -11,6 +13,11 @@ public enum UpgradeType
     PlusGold
 }
 
+/// <summary>
+/// 강화할 수 있는 옵션
+/// </summary>
+/// <typeparam name="TKey">직렬화 할 key값</typeparam>
+/// <typeparam name="TValue">직렬화 할 </typeparam>
 //데이터 직렬화용 딕셔너리 클래스
 [Serializable]
 public class Dict<TKey, TValue>
@@ -25,7 +32,9 @@ public class Dict<TKey, TValue>
     }
 }
 
-//업그레이드 옵션 
+/// <summary>
+/// 업그레이드 옵션 
+/// </summary>
 [Serializable]
 public class UpgradeOption
 {
@@ -37,35 +46,54 @@ public class UpgradeOption
         this.statType = statType;
     }
 
-    //레벨업 시 증가량
+    /// <summary>
+    /// 레벨업 시 증가량
+    /// </summary>
     public float value;
 
-    //현재 레벨
+    /// <summary>
+    /// 현재 레벨
+    /// </summary>
     public int level;
-    
-    //요구골드
+
+    /// <summary>
+    /// 요구골드
+    /// </summary>
     public int requireGold;
 
-    //증가시켜줄 스텟
+    /// <summary>
+    /// 증가시켜줄 스텟
+    /// </summary>
     public StatType statType;
 }
 
 public class Character
 {
-    //능력치
+    /// <summary>
+    /// 능력치
+    /// </summary>
     public StatData statData;
-    //업그레이드 가능한 옵션 딕셔너리<옵션, 증가시켜줄 스텟>
+    /// <summary>
+    /// 업그레이드 가능한 옵션 딕셔너리<옵션, 증가시켜줄 스텟>
+    /// </summary>
     public Dictionary<UpgradeType, UpgradeOption> upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
 
-    //직렬화용 업그레이드 데이터, 스텟 데이터
+    /// <summary>
+    /// 직렬화용 업그레이드 데이터, 스텟 데이터
+    /// </summary>
     public List<Dict<UpgradeType,UpgradeOption>> UO;
     public SerializableStatData SD;
 
-    //재화
+    /// <summary>
+    /// 재화
+    /// </summary>
     public int point;
     public int gold;
-    
-    //생성자
+
+    /// <summary>
+    /// 생성자
+    /// </summary>
+    /// <param name="statData">스텟정보</param>
     public Character(StatData statData)
     {
         point = 0;
@@ -92,7 +120,10 @@ public class Character
         }
     }
 
-    //업그레이드하기
+    /// <summary>
+    /// 업그레이드 기능
+    /// </summary>
+    /// <param name="type">업그레이드 타입</param>
     public void Upgrade(UpgradeType type)
     {
         UpgradeOption upgrade = upgradeOptions[type];
@@ -116,6 +147,9 @@ public class Character
         }
     }
 
+    /// <summary>
+    /// 초기화 작업
+    /// </summary>
     public void Set()
     {
         //딕셔너리 초기화
@@ -133,7 +167,9 @@ public class Character
         upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
     }
 
-    //딕셔너리에 직렬화 전달해주는 역할
+    /// <summary>
+    /// 딕셔너리와 스텟데이터에 직렬화를 전달해주는 역할
+    /// </summary>
     public void LoadValue()
     {
         upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
