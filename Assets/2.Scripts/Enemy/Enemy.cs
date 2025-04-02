@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
             UpdatehealthBar();
         }
         
-        Debug.Log($"Taking Damage, Enemy health {currentHealth}/{MaxHealth}");
+        // Debug.Log($"Taking Damage, Enemy health {currentHealth}/{MaxHealth}");
     }
 
     private void UpdatehealthBar()

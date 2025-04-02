@@ -9,34 +9,54 @@ public class WeaponData : ScriptableObject
     public float criticalPercentage;
     public Sprite icon; // Sprite 타입
 
-    public int purchaseCost; // Point
-    public int upgradeCost; // Gold
+    public int purchaseCost;            // Point
+    public int upgradeCost;             // Gold
+
+    public int increasedCost;           // 
+    public int incresedDamage;          // 
+    public float incresedCriticalPercentage;    // 
 
     public bool isPurchased = false;
     public bool isEquiped = false;
 
     // 생성자 수정 (icon을 string으로 받음)
-    public void Initialize(string weaponName, int upgradeLevel, int weaponDamage, float criticalPercentage, string icon, int purchaseCost, int upgradeCost, bool isPurchased, bool isEquiped)
+    public void Initialize(
+        string weaponName,
+        string icon,
+        int upgradeLevel,
+        int weaponDamage,
+        float criticalPercentage,
+        float incresedCriticalPercentage,
+        int increasedCost,
+        int incresedDamage,
+        int purchaseCost,
+        int upgradeCost,
+        bool isPurchased,
+        bool isEquiped)
     {
         this.weaponName = weaponName;
+
+        string iconPath = $"Icons/{Path.GetFileNameWithoutExtension(icon)}";    // ".png" 확장자 제거한 경로로 아이콘 로드
+        this.icon = Resources.Load<Sprite>(iconPath);
+
         this.upgradeLevel = upgradeLevel;
         this.weaponDamage = weaponDamage;
         this.criticalPercentage = criticalPercentage;
+        this.incresedCriticalPercentage = incresedCriticalPercentage;
 
-        // ".png" 확장자 제거한 경로로 아이콘 로드
-        string iconPath = $"Icons/{Path.GetFileNameWithoutExtension(icon)}";
-
-        // 아이콘 로드
-        this.icon = Resources.Load<Sprite>(iconPath);
+        this.increasedCost = increasedCost;
+        this.incresedDamage = incresedDamage;
 
         this.purchaseCost = purchaseCost;
         this.upgradeCost = upgradeCost;
+
         this.isPurchased = isPurchased;
         this.isEquiped = isEquiped;
     }
 
     public string ToCsvString()
     {
-        return $"{weaponName},{upgradeLevel},{weaponDamage},{criticalPercentage},{icon.name},{purchaseCost},{upgradeCost},{isPurchased},{isEquiped}";
+        return $"{weaponName},{icon.name},{upgradeLevel},{weaponDamage},{criticalPercentage},{incresedCriticalPercentage},{increasedCost},{incresedDamage},{purchaseCost},{upgradeCost},{isPurchased},{isEquiped}";
     }
+
 }

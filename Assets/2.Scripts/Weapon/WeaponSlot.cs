@@ -4,34 +4,81 @@ using UnityEngine.UI;
 
 public class WeaponSlot : MonoBehaviour
 {
-
-
     public TextMeshProUGUI Text_Name_Lv;
+    public Image Icon;
     public TextMeshProUGUI Text_ATK;
     public TextMeshProUGUI Text_Critical;
-    public TextMeshProUGUI Text_UpgradeCost;
     public TextMeshProUGUI Text_PurchaseCost;
-    public Image Icon;
+    public TextMeshProUGUI Text_UpgradeCost;
 
     private WeaponData currentWeapon;
+
+    public GameObject Upgrade;
+    public GameObject IsPurchased;
+    public GameObject isEquiped;
 
     public void SetWeapon(WeaponData weapon)
     {
         currentWeapon = weapon;
-        Text_Name_Lv.text = weapon.weaponName + " Lv." + weapon.upgradeLevel.ToString();
-        Text_ATK.text = weapon.weaponDamage.ToString();
-        Text_Critical.text = weapon.criticalPercentage.ToString("N2") + "%";
-        Icon.sprite = weapon.icon;
-        Text_UpgradeCost.text = weapon.upgradeCost.ToString();
-        Text_PurchaseCost.text = weapon.purchaseCost.ToString();
+
+        Icon.sprite = currentWeapon.icon;
+        Text_Name_Lv.text = currentWeapon.weaponName + " Lv." + currentWeapon.upgradeLevel.ToString();
+        Text_ATK.text = currentWeapon.weaponDamage.ToString();
+        Text_Critical.text = currentWeapon.criticalPercentage.ToString("N2") + "%";
+        Text_PurchaseCost.text = currentWeapon.purchaseCost.ToString();
+        Text_UpgradeCost.text = currentWeapon.upgradeCost.ToString();
+
+        if (currentWeapon.isPurchased)
+        {
+            IsPurchased.SetActive(false);
+            Upgrade.SetActive(true);
+        }
+
+        // 장착 상태 UI 업데이트
+        isEquiped.SetActive(!currentWeapon.isEquiped);
     }
 
     public void PucrchaseWeapon()
     {
         if (GameManager.Instance.UsePoint(currentWeapon.purchaseCost))
         {
-            GameManager.Instance.UsePoint(currentWeapon.purchaseCost);
-            gameObject.SetActive(false);
+            currentWeapon.isPurchased = true;
+            Upgrade.SetActive(true);
+            IsPurchased.SetActive(false);
         }
+    }
+
+    public void UpgradeWeapon()
+    {
+        if (GameManager.Instance.UsePoint(currentWeapon.upgradeCost))
+        {
+            currentWeapon.upgradeLevel++;
+            currentWeapon.upgradeCost += currentWeapon.increasedCost;
+            currentWeapon.weaponDamage += currentWeapon.incresedDamage;
+            currentWeapon.criticalPercentage += currentWeapon.incresedCriticalPercentage;
+            Text_Name_Lv.text = currentWeapon.weaponName + " Lv." + currentWeapon.upgradeLevel.ToString();
+            Text_UpgradeCost.text = currentWeapon.upgradeCost.ToString();
+        }
+    }
+
+    public void EquipWeapon()
+    {
+        
+        // 모든 무기의 isEquiped를 false로 변경
+        foreach (var slot in WeaponUI2.Instance.weaponSlots)
+        {
+            slot.isEquiped.SetActive(true);
+        }
+        foreach (var weapon in WeaponUI2.Instance.GetWeapons())
+        {
+            weapon.isEquiped = false;
+        }
+        isEquiped.SetActive(false);
+
+        // 현재 무기만 isEquiped = true
+        currentWeapon.isEquiped = true;
+
+        // UI 업데이트 (장착된 무기를 표시)
+        WeaponUI2.Instance.SetEquippedWeapons();
     }
 }

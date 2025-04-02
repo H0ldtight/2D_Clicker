@@ -7,6 +7,7 @@ public class WeaponUI2 : MonoBehaviour
 {
 
     public static WeaponUI2 Instance { get; private set; }
+
     private List<WeaponData> weapons = new List<WeaponData>();
     public List<WeaponSlot> weaponSlots = new List<WeaponSlot>();
 
@@ -42,6 +43,11 @@ public class WeaponUI2 : MonoBehaviour
         weapons = weaponList;
         SetEquippedWeapons();
     }
+    public List<WeaponData> GetWeapons()
+    {
+        return weapons;
+    }
+
     public void SetWeaponSlots()
     {
         for (int i = 0; i < weaponSlots.Count && i < weapons.Count; i++)
@@ -60,9 +66,9 @@ public class WeaponUI2 : MonoBehaviour
     // 무기 데이터를 갱신하는 메서드
     public void SetWeaponData(WeaponData weapon)
     {
+        icon.sprite = weapon.icon;
         weaponName.text = weapon.weaponName;
         weaponLv.text = weapon.upgradeLevel.ToString();
-        icon.sprite = weapon.icon;
         weaponAtk.text = weapon.weaponDamage.ToString();
         weaponCrit.text = weapon.criticalPercentage.ToString("N2") + "%";
     }
