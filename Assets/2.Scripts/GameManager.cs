@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         {
             Directory.CreateDirectory(saveDirectory);
         }
+        NewPlayerData();
     }
     private void Start()
     {
@@ -58,35 +59,6 @@ public class GameManager : MonoBehaviour
         //finalAttackPower += //무기 공격력
         //finalCritDamage = finalAttackPower * player.statData.GetStatValue(StatType.Criticaldamage);  무기 공격력에서 곱해줌
         finalGoldBonus = (int)player.statData.GetStatValue(StatType.ExtraGold);
-    }
-
-    public void SaveData()
-    {
-        player.point = point;
-        player.gold = gold;
-        //데이터 저장
-        string filePath = Path.Combine(saveDirectory,"PlayerData.json");//파일 경로 및 파일 이름 지정
-        string json = JsonUtility.ToJson(player, true); //제이슨 변환 
-        File.WriteAllText(filePath, json); // 생성
-    }
-
-    public void NewPlayerData()
-    {
-        StatData statDataCopy = ScriptableObject.Instantiate(statData);
-        player = new Character(statDataCopy);
-    }
-
-
-    public void LoadPlayerData() //이어 하기시
-    {
-        string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
-        string json = File.ReadAllText(filePath);  // 읽기
-        player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
-        //Debug.Log(player.gold);
-        //Debug.Log(player.point);
-        gold = player.gold;
-        point = player.point;
-
     }
 
     public void OnClick() //클릭 이벤트
@@ -215,8 +187,51 @@ public class GameManager : MonoBehaviour
         CalculateFinalStats();
     }
 
+
     public void AddPoint(int amount)
     {
         point += amount;
+    }
+
+    //새로 시작하기
+    public void NewPlayerData()
+    {
+        //StatData statDataCopy = ScriptableObject.Instantiate(statData);
+        //player = new Character(statDataCopy);
+        player = new Character(statData);
+    }
+
+    //데이터 저장하기
+    public void SaveData()
+    {
+        player.point = point;
+        player.gold = gold;
+        //데이터 저장
+        string filePath = Path.Combine(saveDirectory, "PlayerData.json");//파일 경로 및 파일 이름 지정
+        string json = JsonUtility.ToJson(player, true); //제이슨 변환 
+        Debug.Log(filePath);
+        File.WriteAllText(filePath, json); // 생성
+    }
+
+    //데이터 불러오기
+    public void LoadPlayerData()
+    {
+        string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
+
+
+        if (!File.Exists(filePath))
+        {
+            Debug.LogWarning("There is no SaveFile.");
+            NewPlayerData();
+            return;
+        }
+        string json = File.ReadAllText(filePath);  // 읽기
+        player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
+        
+        player.LoadValue();
+        gold = player.gold;
+        point = player.point;
+
+        UIManager.Instance.MainUI.WeaponUI.UpdateUI();
     }
 }

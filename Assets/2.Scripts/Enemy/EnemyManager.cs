@@ -33,8 +33,6 @@ public class EnemyManager : MonoBehaviour
         currentEnemyData = data;
         remainCount = data.enemyCount;
         SpawnNextEnemy();
-        
-        Debug.Log("Spawned Enemy.");
     }
 
     private void SpawnNextEnemy()
@@ -70,9 +68,6 @@ public class EnemyManager : MonoBehaviour
         GameManager.Instance.AddPoint(pointReward);
 
         Destroy(enemy.gameObject);
-        
-        Debug.Log("Enemy Died");
-        
         SpawnNextEnemy();
     }
     
