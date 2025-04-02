@@ -67,15 +67,11 @@ public class StageManager : MonoBehaviour
         }
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
-        
-        Debug.Log("Stage start!");
     }
 
     public void OnStageCleared()
     {
         currentStageIndex++;
-        
-        Debug.Log("Stage cleared!");
         StartStage(currentStageIndex);
     }
 }
