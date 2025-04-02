@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
-        StartAutoAttack();
     }
 
     public void CalculateFinalStats()
