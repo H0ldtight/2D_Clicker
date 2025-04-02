@@ -109,4 +109,13 @@ public class Character
 
         UIManager.Instance.MainUI.WeaponUI.UpdateUI(type);
     }
+
+    //딕셔너리에 직렬화 전달해주는 역할
+    public void LoadDict()
+    {
+        foreach (Dict<UpgradeType, UpgradeOption> dic in UO)
+        {
+            upgradeOptions[dic.key] = dic.value;
+        }
+    }
 }
