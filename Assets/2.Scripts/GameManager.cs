@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void CalculateFinalStats()
     {
-        //finalAttackPower += //무기 공격력
+        finalAttackPower += WeaponManager.Instance.EquipedWeapon.weaponDamage;
         //finalCritDamage = finalAttackPower * player.statData.GetStatValue(StatType.Criticaldamage);  무기 공격력에서 곱해줌
         finalGoldBonus = (int)player.statData.GetStatValue(StatType.ExtraGold);
     }
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         if (target != null && !isPaused)
         {
             float random = UnityEngine.Random.Range(0.0f, 1.0f);
-            float _critChance = 0.2f;
+            float _critChance = WeaponManager.Instance.EquipedWeapon.criticalPercentage;
             if (random < _critChance) //나중 무기 크리티컬
             {
                 target.TakeDamage(20);

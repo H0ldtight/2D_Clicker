@@ -21,20 +21,24 @@ public class WeaponSlot : MonoBehaviour
     {
         currentWeapon = weapon;
 
+        UpdateWeaponUI();
+        UpdatePurchaseStatus();
+    }
+
+    private void UpdateWeaponUI()
+    {
         Icon.sprite = currentWeapon.icon;
         Text_Name_Lv.text = currentWeapon.weaponName + " Lv." + currentWeapon.upgradeLevel.ToString();
         Text_ATK.text = currentWeapon.weaponDamage.ToString();
         Text_Critical.text = currentWeapon.criticalPercentage.ToString("N2") + "%";
         Text_PurchaseCost.text = currentWeapon.purchaseCost.ToString();
         Text_UpgradeCost.text = currentWeapon.upgradeCost.ToString();
+    }
 
-        if (currentWeapon.isPurchased)
-        {
-            IsPurchased.SetActive(false);
-            Upgrade.SetActive(true);
-        }
-
-        // 장착 상태 UI 업데이트
+    private void UpdatePurchaseStatus()
+    {
+        IsPurchased.SetActive(!currentWeapon.isPurchased);
+        Upgrade.SetActive(currentWeapon.isPurchased);
         isEquiped.SetActive(!currentWeapon.isEquiped);
     }
 
@@ -56,8 +60,7 @@ public class WeaponSlot : MonoBehaviour
             currentWeapon.upgradeCost += currentWeapon.increasedCost;
             currentWeapon.weaponDamage += currentWeapon.incresedDamage;
             currentWeapon.criticalPercentage += currentWeapon.incresedCriticalPercentage;
-            Text_Name_Lv.text = currentWeapon.weaponName + " Lv." + currentWeapon.upgradeLevel.ToString();
-            Text_UpgradeCost.text = currentWeapon.upgradeCost.ToString();
+            UpdateWeaponUI();
         }
     }
 
@@ -65,11 +68,11 @@ public class WeaponSlot : MonoBehaviour
     {
         
         // 모든 무기의 isEquiped를 false로 변경
-        foreach (var slot in WeaponUI2.Instance.weaponSlots)
+        foreach (var slot in WeaponManager.Instance.weaponSlots)
         {
             slot.isEquiped.SetActive(true);
         }
-        foreach (var weapon in WeaponUI2.Instance.GetWeapons())
+        foreach (var weapon in WeaponManager.Instance.GetWeapons())
         {
             weapon.isEquiped = false;
         }
@@ -77,8 +80,7 @@ public class WeaponSlot : MonoBehaviour
 
         // 현재 무기만 isEquiped = true
         currentWeapon.isEquiped = true;
-
-        // UI 업데이트 (장착된 무기를 표시)
-        WeaponUI2.Instance.SetEquippedWeapons();
+        isEquiped.SetActive(false);
+        WeaponManager.Instance.SetEquippedWeapons();
     }
 }

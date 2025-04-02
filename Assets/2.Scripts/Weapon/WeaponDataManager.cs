@@ -22,33 +22,35 @@ public class WeaponDataManager : MonoBehaviour
         {
             Destroy(gameObject);  // 이미 인스턴스가 존재하면 파괴
         }
-        Create();
     }
-    public void Create()
-    {
-        Debug.Log("Create 실행.");
-        if (!Directory.Exists(folderPath))
-        {
-            Debug.Log("폴더가 없습니다. 새로 생성합니다.");
-            Directory.CreateDirectory(folderPath);
-        }
 
-        if (!File.Exists(filePath))
-        {
-            Debug.Log("CSV 파일이 없습니다. 새로 생성합니다.");
-            CreateDefaultCsv();
-        }
+    public void NewWeaponData()                 // 새로하기
+    {
+        Directory.CreateDirectory(folderPath);
+        CreateDefaultCsv();
+   
 
         List<WeaponData> weapons = LoadWeapons();
         // UI와 연결해서 무기 리스트 전달
         StartCoroutine(DelayedSetWeapons(weapons));
     }
 
+    public void ContinueWeaponData()                 // 새로하기
+    {
+        Directory.CreateDirectory(folderPath);
+
+
+        List<WeaponData> weapons = LoadWeapons();
+        // UI와 연결해서 무기 리스트 전달
+        StartCoroutine(DelayedSetWeapons(weapons));
+    }
+
+
     private IEnumerator DelayedSetWeapons(List<WeaponData> weapons)
     {
-        // WeaponUI2 인스턴스가 초기화될 때까지 기다린다.
-        yield return new WaitUntil(() => WeaponUI2.Instance != null);
-        WeaponUI2.Instance.SetWeapons(weapons);
+        // WeaponManager 인스턴스가 초기화될 때까지 기다린다.
+        yield return new WaitUntil(() => WeaponManager.Instance != null);
+        WeaponManager.Instance.SetWeapons(weapons);
     }
     public void CreateDefaultCsv()
     {
@@ -60,7 +62,6 @@ public class WeaponDataManager : MonoBehaviour
             CreateWeaponData("철검", "ironsword.png", 1, 10, 15.00f, 0.20f, 40, 4, 40, 40, false, false),
             CreateWeaponData("황금검", "goldensword.png", 1, 20, 20.00f, 0.4f, 80, 10, 80, 80, false, false),
             CreateWeaponData("다이아몬드검", "diamondsword.png", 1, 50, 25.00f, 1.00f, 100, 20, 100, 100, false, false)
-
         };
 
         SaveWeapons(defaultWeapons);

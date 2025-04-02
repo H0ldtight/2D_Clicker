@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
     {
         weaponInventoryUiObj.SetActive(true);
     }
-
+    
     public void OpenSoundUi()
     {
         soundUiObj.SetActive(true);
