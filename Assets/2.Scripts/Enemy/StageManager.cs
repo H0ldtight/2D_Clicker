@@ -74,4 +74,13 @@ public class StageManager : MonoBehaviour
         currentStageIndex++;
         StartStage(currentStageIndex);
     }
+
+    public void LoadStageFromSave(int savedIndex)
+    {
+        currentStageIndex = savedIndex;
+        allEnemySprites = Resources.LoadAll<Sprite>(enemySpriteFolderPath); // 재로드 보장
+        UIManager.Instance.StageUI.SetEnemy();
+        StartStage(currentStageIndex);
+    }
+
 }

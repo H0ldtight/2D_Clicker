@@ -23,13 +23,13 @@ public class StartUI : MonoBehaviour
 
     public void OnClickStart()
     {
-        GameManager.Instance.NewPlayerData();
         UIManager.Instance.OpenMainUi();
+        GameManager.Instance.NewPlayerData();
     }
     public void OnClickContinue()
     {
-        GameManager.Instance.LoadPlayerData();
         UIManager.Instance.OpenMainUi();
+        GameManager.Instance.LoadPlayerData();
     }
 
 

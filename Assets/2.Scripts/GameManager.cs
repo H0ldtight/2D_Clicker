@@ -5,6 +5,15 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    public Character player;
+    public int stageIndex;
+}
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -206,11 +215,16 @@ public class GameManager : MonoBehaviour
     {
         player.point = point;
         player.gold = gold;
+        PlayerSaveData saveData = new PlayerSaveData
+        {
+            player = player,
+            stageIndex = StageManager.Instance.CurrentStageIndex
+        };
         //데이터 저장
         string filePath = Path.Combine(saveDirectory, "PlayerData.json");//파일 경로 및 파일 이름 지정
-        string json = JsonUtility.ToJson(player, true); //제이슨 변환 
-        Debug.Log(filePath);
+        string json = JsonUtility.ToJson(saveData, true); //제이슨 변환 
         File.WriteAllText(filePath, json); // 생성
+        Debug.Log(filePath);
     }
 
     //데이터 불러오기
@@ -226,12 +240,15 @@ public class GameManager : MonoBehaviour
             return;
         }
         string json = File.ReadAllText(filePath);  // 읽기
-        player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
-        
+        PlayerSaveData saveData = JsonUtility.FromJson<PlayerSaveData>(json); // 원래 데이터로 변환
+
+        player = saveData.player;
+        player.statData = this.statData;
         player.LoadValue();
         gold = player.gold;
         point = player.point;
 
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
+        StageManager.Instance.LoadStageFromSave(saveData.stageIndex);
     }
 }
