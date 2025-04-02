@@ -20,16 +20,17 @@ public class StartUI : MonoBehaviour
 
     public void OnClickStart()
     {
-        GameManager.Instance.NewPlayerData();
-        WeaponDataManager.Instance.NewWeaponData();
         UIManager.Instance.OpenMainUi();
+        WeaponDataManager.Instance.NewWeaponData();
+        GameManager.Instance.NewPlayerData();
         UIManager.Instance.MainUI.UpdateUI();
     }
     public void OnClickContinue()
     {
-        // GameManager.Instance.LoadPlayerData();
+        GameManager.Instance.LoadPlayerData();
         WeaponDataManager.Instance.ContinueWeaponData();
         UIManager.Instance.OpenMainUi();
+        GameManager.Instance.LoadPlayerData();
     }
 
 

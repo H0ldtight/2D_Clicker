@@ -27,7 +27,6 @@ public class PausedUI : MonoBehaviour
     public void LoadData()
     {
         UIManager.Instance.TogglePausedUi();
-        GameManager.Instance.LoadPlayerData();
         UIManager.Instance.MainUI.OpenMessage("로드가 완료 되었습니다.");
     }
 }

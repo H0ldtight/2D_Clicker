@@ -41,9 +41,11 @@ public class StageManager : MonoBehaviour
     {
         allEnemySprites = Resources.LoadAll<Sprite>(enemySpriteFolderPath);
         UIManager.Instance.StageUI.SetEnemy(); // 스테이지 텍스트 초기화
+    }
+    public void NewStart()
+    {
         StartStage(currentStageIndex);
     }
-
     public void StartStage(int stageIndex)
     {
         //UI
@@ -67,6 +69,7 @@ public class StageManager : MonoBehaviour
         }
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
+        Debug.Log(stageEnemy.maxHealth);
     }
 
     public void OnStageCleared()
@@ -74,4 +77,13 @@ public class StageManager : MonoBehaviour
         currentStageIndex++;
         StartStage(currentStageIndex);
     }
+
+    public void LoadStageFromSave(int savedIndex)
+    {
+        currentStageIndex = savedIndex;
+        allEnemySprites = Resources.LoadAll<Sprite>(enemySpriteFolderPath); // 재로드 보장
+        UIManager.Instance.StageUI.SetEnemy();
+        StartStage(currentStageIndex);
+    }
+
 }
