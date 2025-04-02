@@ -104,7 +104,7 @@ public class Character
         //플레이어스텟 초깃값
         for (int i = 0; i < (int)StatType.Count; i++)
         {
-            this.statData.SetStat(i, 0);
+            this.statData.SetStat(i, 1);
         }
 
         Set();
@@ -160,11 +160,11 @@ public class Character
         SD = new SerializableStatData();
 
         //골드획득량증가 옵션 등록
-        upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
+        upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(1, 0, 25, StatType.ExtraGold));
         //자동공격 몇초에 1대씩 때릴건지
         upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.1f, 0, 25, StatType.ReduceAttackSpeed));
         //크리티컬 데미지 증가
-        upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
+        upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(1, 0, 25, StatType.Criticaldamage));
     }
 
     /// <summary>

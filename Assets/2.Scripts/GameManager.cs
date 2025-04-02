@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public int finalAttackPower; //최종 데미지
     public int finalCritDamage; // 최종 크리티컬 데미지
-    public int finalGoldBonus = 5; // 최종 골드 보너스
+    public int finalGoldBonus; // 최종 골드 보너스
 
     public bool isPaused; // 일시정지
 
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("무기가 장착되지 않았습니다.");
             return;
         }
-        finalAttackPower += WeaponManager.Instance.EquipedWeapon.weaponDamage; //여기가 null값입니다.
+        finalAttackPower += WeaponManager.Instance.EquipedWeapon.weaponDamage;
         finalCritDamage = finalAttackPower * (int)player.statData.GetStatValue(StatType.Criticaldamage); // 무기 공격력에서 곱해줌
         finalGoldBonus = (int)player.statData.GetStatValue(StatType.ExtraGold);
     }
@@ -203,13 +203,16 @@ public class GameManager : MonoBehaviour
     //새로 시작하기
     public void NewPlayerData()
     {
-        StageManager.Instance.NewStart();
+        StageManager.Instance.LoadStageFromSave(0);
         StatData statDataCopy = ScriptableObject.Instantiate(statData);
         player = new Character(statDataCopy);
         gold = 0;
         point = 0;
         autoAttackSpeed = 10f;
         UpgradeAutoAttackSpeed();
+
+
+        SaveData(); //새로하기를 클릭하면 중간에 게임을 나왔다가 이어하기를 해도 다시 초기화되도록 만듬, 즉 저장하기 버튼과 이어하기만을 눌러야지 이어하기가 가능
         WeaponManager.Instance.SetEquippedWeapons();
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
     }
