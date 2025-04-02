@@ -10,13 +10,10 @@ public class StartUI : MonoBehaviour
     [SerializeField] private Button settingSoundButton; // 음악 설정 버튼
     [SerializeField] private Button soundBackBtn; //음악 설정 뒤로가기 버튼
 
-
-
-
     private void Start()
     {
         startBotton.onClick.AddListener(() => OnClickStart());
-        continueButton.onClick.AddListener(() => OnClickContinue());
+        continueButton.onClick.AddListener(() => OnClickContinue()); 
         settingSoundButton.onClick.AddListener(()=>UIManager.Instance.OpenSoundUi());
         soundBackBtn.onClick.AddListener(() => UIManager.Instance.CloseSoundUi());
     }
@@ -25,6 +22,7 @@ public class StartUI : MonoBehaviour
     {
         GameManager.Instance.NewPlayerData();
         UIManager.Instance.OpenMainUi();
+        UIManager.Instance.MainUI.UpdateUI();
     }
     public void OnClickContinue()
     {

@@ -75,7 +75,6 @@ public class StatData : ScriptableObject
 
     public void SetStat(int idx, float value)
     {
-        if (idx == -1) return;
         stats[idx].totalValue += value;
     }
 }

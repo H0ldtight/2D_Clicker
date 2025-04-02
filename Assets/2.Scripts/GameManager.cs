@@ -197,6 +197,9 @@ public class GameManager : MonoBehaviour
     {
         StatData statDataCopy = ScriptableObject.Instantiate(statData);
         player = new Character(statDataCopy);
+        gold = player.gold;
+        point = player.point;
+        UIManager.Instance.MainUI.WeaponUI.UpdateUI();
     }
 
     //데이터 저장하기
@@ -227,7 +230,6 @@ public class GameManager : MonoBehaviour
         player.LoadValue();
         gold = player.gold;
         point = player.point;
-
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
     }
 }

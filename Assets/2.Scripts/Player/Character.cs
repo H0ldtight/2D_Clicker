@@ -90,6 +90,8 @@ public class Character
         {
             SD.stats.Add(stat);
         }
+
+        int a = 3;
     }
 
     //업그레이드하기
@@ -135,7 +137,7 @@ public class Character
 
     //딕셔너리에 직렬화 전달해주는 역할
     public void LoadValue()
-    { 
+    {
         upgradeOptions = new Dictionary<UpgradeType, UpgradeOption>();
         statData = ScriptableObject.CreateInstance<StatData>();
         statData.Make();
