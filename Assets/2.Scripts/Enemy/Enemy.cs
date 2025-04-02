@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
             
             float elapsed = 0f;
             float duration = damageFlashDuration;
-            float intensity = 1f; // 흔들림 정도
+            float intensity = 0.3f; // 흔들림 정도
 
             while (elapsed < duration)
             {

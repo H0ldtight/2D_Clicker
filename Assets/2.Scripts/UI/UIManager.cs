@@ -86,11 +86,13 @@ public class UIManager : MonoBehaviour
 
     public void OpenSoundUi()
     {
-        soundUiObj.SetActive(true); 
+        soundUiObj.SetActive(true);
+        enemyObj.SetActive(false);
     }
     public void CloseSoundUi()
     {
         soundUiObj.SetActive(false);
+        enemyObj.SetActive(true);
     }
 
 }
