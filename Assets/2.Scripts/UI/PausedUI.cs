@@ -20,6 +20,7 @@ public class PausedUI : MonoBehaviour
     {
         UIManager.Instance.TogglePausedUi();
         GameManager.Instance.SaveData();
+        WeaponDataManager.Instance.SaveWeapons(WeaponManager.Instance.weapons);
         UIManager.Instance.MainUI.OpenMessage("저장이 완료 되었습니다.");   
     }
 
@@ -27,9 +28,6 @@ public class PausedUI : MonoBehaviour
     {
         UIManager.Instance.TogglePausedUi();
         GameManager.Instance.LoadPlayerData();
-        WeaponDataManager.Instance.SaveWeapons(WeaponManager.Instance.weapons);
         UIManager.Instance.MainUI.OpenMessage("로드가 완료 되었습니다.");
-        
-        
     }
 }

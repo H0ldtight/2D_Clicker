@@ -29,16 +29,14 @@ public class WeaponDataManager : MonoBehaviour
         Directory.CreateDirectory(folderPath);
         CreateDefaultCsv();
    
-
         List<WeaponData> weapons = LoadWeapons();
         // UI와 연결해서 무기 리스트 전달
         StartCoroutine(DelayedSetWeapons(weapons));
     }
 
-    public void ContinueWeaponData()                 // 새로하기
+    public void ContinueWeaponData()                 // 이어하기
     {
         Directory.CreateDirectory(folderPath);
-
 
         List<WeaponData> weapons = LoadWeapons();
         // UI와 연결해서 무기 리스트 전달

@@ -91,7 +91,7 @@ public class Character
             SD.stats.Add(stat);
         }
 
-        int a = 3;
+        // int a = 3;
     }
 
     //업그레이드하기
