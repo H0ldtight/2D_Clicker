@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
         {
             Directory.CreateDirectory(saveDirectory);
         }
-        NewPlayerData();
     }
     private void Start()
     {
@@ -195,6 +194,7 @@ public class GameManager : MonoBehaviour
     //새로 시작하기
     public void NewPlayerData()
     {
+        StageManager.Instance.NewStart();
         StatData statDataCopy = ScriptableObject.Instantiate(statData);
         player = new Character(statDataCopy);
         gold = player.gold;
@@ -210,26 +210,63 @@ public class GameManager : MonoBehaviour
         //데이터 저장
         string filePath = Path.Combine(saveDirectory, "PlayerData.json");//파일 경로 및 파일 이름 지정
         string json = JsonUtility.ToJson(player, true); //제이슨 변환 
-        Debug.Log(filePath);
         File.WriteAllText(filePath, json); // 생성
+
+        SaveStageIndex();
     }
 
     //데이터 불러오기
     public void LoadPlayerData()
     {
-        string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
+        //string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
 
-        if (!File.Exists(filePath))
-        {
-            Debug.LogWarning("There is no SaveFile.");
-            NewPlayerData();
-            return;
-        }
-        string json = File.ReadAllText(filePath);  // 읽기
-        player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
-        player.LoadValue();
-        gold = player.gold;
-        point = player.point;
-        UIManager.Instance.MainUI.WeaponUI.UpdateUI();
+        //if (!File.Exists(filePath))
+        //{
+        //    Debug.LogWarning("There is no SaveFile.");
+        //    NewPlayerData();
+        //    return;
+        //}
+        //string json = File.ReadAllText(filePath);  // 읽기
+        //player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
+        //player.LoadValue();
+        //gold = player.gold;
+        //point = player.point;
+        //UIManager.Instance.MainUI.WeaponUI.UpdateUI();
+
+        LoadStageIndex();
     }
+
+    public void SaveStageIndex()
+    {
+        string path = Path.Combine(saveDirectory, "StageData.json");
+        int currentStage = StageManager.Instance.CurrentStageIndex;
+        File.WriteAllText(path, currentStage.ToString());
+        Debug.Log($"[스테이지 저장 완료] {currentStage}");
+    }
+
+    public void LoadStageIndex()
+    {
+        string path = Path.Combine(saveDirectory, "StageData.json");
+
+        if (File.Exists(path))
+        {
+            string content = File.ReadAllText(path);
+            if (int.TryParse(content, out int savedStage))
+            {
+                StageManager.Instance.LoadStageFromSave(savedStage);
+                Debug.Log($"[스테이지 불러오기] {savedStage}");
+            }
+            else
+            {
+                Debug.LogWarning("StageData.json 파싱 실패. 0 스테이지로 초기화");
+                StageManager.Instance.LoadStageFromSave(0);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("StageData.json 없음. 0 스테이지로 초기화");
+            StageManager.Instance.LoadStageFromSave(0);
+        }
+    }
+
 }
