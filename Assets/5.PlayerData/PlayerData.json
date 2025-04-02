@@ -1,6 +1,6 @@
 {
     "statData": {
-        "instanceID": 25144
+        "instanceID": 25146
     },
     "UO": [
         {
@@ -35,22 +35,22 @@
         "stats": [
             {
                 "stat": 0,
-                "totalValue": 0.6000000238418579
+                "totalValue": 593.60009765625
             },
             {
                 "stat": 1,
-                "totalValue": 0.6000000238418579
+                "totalValue": 593.60009765625
             },
             {
                 "stat": 2,
-                "totalValue": 0.6000000238418579
+                "totalValue": 593.60009765625
             },
             {
                 "stat": 3,
-                "totalValue": 0.6000000238418579
+                "totalValue": 593.60009765625
             }
         ]
     },
-    "point": 0,
-    "gold": 20
+    "point": 245,
+    "gold": 1275
 }

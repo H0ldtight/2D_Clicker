@@ -10,7 +10,7 @@ public class WeaponManager : MonoBehaviour
 
     public WeaponData EquipedWeapon { get; private set; } = null;
 
-    private List<WeaponData> weapons = new List<WeaponData>();
+    public List<WeaponData> weapons = new List<WeaponData>();
     public List<WeaponSlot> weaponSlots = new List<WeaponSlot>();
 
     public TextMeshProUGUI weaponName;
