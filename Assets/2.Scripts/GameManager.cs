@@ -90,15 +90,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void OnClick()
+    public void OnClick() //클릭 이벤트
     {
-        if(!isPaused)
-        {
-            gold += finalGoldBonus;
-            UIManager.Instance.MainUI.UpdateUI();
-
-            SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
-        }
+        PerformAttack(false);
     }
 
     public void SpawnClickEffect(Vector3 screenPosition) //파티클 시스템
@@ -144,13 +138,13 @@ public class GameManager : MonoBehaviour
         StartAutoAttack();
     }
 
-    public void StartAutoAttack() // 자동공격 시작
+    public void StartAutoAttack() // 자동공격 코루틴
     {
         if (autoAttackCorutine == null)
             autoAttackCorutine = StartCoroutine(AutoAttack());
     }
 
-    public void StopAutoAttack() // 자동공격 멈춤 일시정지할 때
+    public void StopAutoAttack() // 자동공격 stop 코루틴
     {
         if (autoAttackCorutine != null)
         {
@@ -160,16 +154,40 @@ public class GameManager : MonoBehaviour
     }
     private void AutoAttackEnemy()
     {
-        Enemy target = FindObjectOfType<Enemy>();
-        if (target != null)
+        PerformAttack(true);
+    }
+
+    public void PerformAttack(bool Auto = false)
+    {
+        Enemy target = EnemyManager.Instance.CurrentEnemy;
+        if (target != null && !isPaused)
         {
-            target.TakeDamage(autoAttackDamage); 
+            float random = UnityEngine.Random.Range(0.0f, 1.0f);
+            float _critChance = 0.2f;
+            if (random < _critChance) //나중 무기 크리티컬
+            {
+                target.TakeDamage(20);
+                SoundManager.Instance.ApplyCriticalSFX();
+            }
+            else
+            {
+                target.TakeDamage(10);
+                SoundManager.Instance.ApplyMainSceneSFX();
+            }
             SoundManager.Instance.PlaySFX();
             gold += finalGoldBonus;
             UIManager.Instance.MainUI.UpdateUI();
-            GameObject fx = Instantiate(clickEffectPrefab, target.transform.position, Quaternion.identity, effectHolder);
-            Destroy(fx, 1f);
+            if (Auto)
+            {
+                GameObject fx = Instantiate(clickEffectPrefab, target.transform.position, Quaternion.identity, effectHolder);
+                Destroy(fx, 1f);
+            }
+            else
+            {
+                SpawnClickEffect(Input.mousePosition); // 클릭 이펙트 여기서 실행!
+            }
         }
+
     }
     private IEnumerator AutoAttack() //딜레이
     {

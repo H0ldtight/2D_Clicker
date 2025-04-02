@@ -7,14 +7,17 @@ public class EnemyManager : MonoBehaviour
     
     public GameObject enemyPrefab;
     
-    private EnemyData currentEnemyData;
+    public EnemyData currentEnemyData;
     private int remainCount;
     
     // 적처치 보상관련
     private int pointReward;
 
     [SerializeField] private Transform enemyParent; // 적 프리팹의 부모
-    
+
+    private Enemy currentEnemy;
+    public Enemy CurrentEnemy => currentEnemy;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -46,7 +49,8 @@ public class EnemyManager : MonoBehaviour
         GameObject enemyObj = Instantiate(enemyPrefab, GetSpawnPosition(), Quaternion.identity, enemyParent);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.data = currentEnemyData;
-        
+
+        currentEnemy = enemy; //현재 적 저장 게임 매니저 활용 목적
         remainCount--;
 
     }
@@ -58,6 +62,10 @@ public class EnemyManager : MonoBehaviour
     
     public void OnEnemyDied(Enemy enemy)
     {
+        if(enemy == currentEnemy)
+        {
+            currentEnemy = null;
+        }
         // 적처치 보상관련
         GameManager.Instance.AddPoint(pointReward);
 
