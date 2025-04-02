@@ -33,8 +33,8 @@ public class SoundManager : MonoBehaviour
     }
     private void Start()
     {
-      //  ChangeBGM(startBgm);
-      //  ChanageSFX (startSfx);
+        ChangeBGM(startBgm);
+        ChanageSFX (startSfx);
     }
 
     public void SetBGMVolume(float value) //배경음 소리 조절

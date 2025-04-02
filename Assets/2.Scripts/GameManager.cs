@@ -55,7 +55,12 @@ public class GameManager : MonoBehaviour
 
     public void CalculateFinalStats()
     {
-        finalAttackPower += WeaponManager.Instance.EquipedWeapon.weaponDamage;
+        if (WeaponManager.Instance.EquipedWeapon == null)
+        {
+            Debug.LogWarning("무기가 장착되지 않았습니다.");
+            return;
+        }
+        finalAttackPower += WeaponManager.Instance.EquipedWeapon.weaponDamage; //여기가 null값입니다.
         finalCritDamage = finalAttackPower * (int)player.statData.GetStatValue(StatType.Criticaldamage); // 무기 공격력에서 곱해줌
         finalGoldBonus = (int)player.statData.GetStatValue(StatType.ExtraGold);
     }
@@ -201,8 +206,11 @@ public class GameManager : MonoBehaviour
         StageManager.Instance.NewStart();
         StatData statDataCopy = ScriptableObject.Instantiate(statData);
         player = new Character(statDataCopy);
-        gold = player.gold;
-        point = player.point;
+        gold = 0;
+        point = 0;
+        autoAttackSpeed = 10f;
+        UpgradeAutoAttackSpeed();
+        WeaponManager.Instance.SetEquippedWeapons();
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
     }
 
@@ -236,6 +244,7 @@ public class GameManager : MonoBehaviour
         gold = player.gold;
         point = player.point;
         UpgradeAutoAttackSpeed();
+        CalculateFinalStats();
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
         LoadStageIndex();
     }

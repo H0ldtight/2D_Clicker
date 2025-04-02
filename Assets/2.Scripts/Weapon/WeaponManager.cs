@@ -33,11 +33,13 @@ public class WeaponManager : MonoBehaviour
         {
             Instance = this;
         }
+
     }
 
     void Start()
     {
         WeaponInventory.SetActive(false);
+
     }
 
     public void SetWeapons(List<WeaponData> weaponList)

@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
         }
         togle = false; 
         GameManager.Instance.isPaused = true; //일시 정지 
-        //SoundManager.Instance.ApplyBGM(BGMType.Start);
+        SoundManager.Instance.ApplyBGM(BGMType.Start);
         SoundManager.Instance.ApplyStartSceneSFX();
     }
 
@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
         stageUiObj.SetActive(true);
         startUiObj.SetActive(false);
         GameManager.Instance.isPaused = false; // 일시 정지 해제
-        //SoundManager.Instance.ApplyBGM(BGMType.Main);
+        SoundManager.Instance.ApplyBGM(BGMType.Main);
         SoundManager.Instance.ApplyMainSceneSFX();
     }
 
