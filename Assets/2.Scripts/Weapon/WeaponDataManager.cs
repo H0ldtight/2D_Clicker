@@ -54,21 +54,48 @@ public class WeaponDataManager : MonoBehaviour
     {
         List<WeaponData> defaultWeapons = new List<WeaponData>
         {
-            CreateWeaponData("나무검", 1, 1, 10.0f, "woodsword.png", 20, 100, true, true),
-            CreateWeaponData("돌검", 1, 5, 15.0f, "stonesword.png", 80, 100, false, false),
-            CreateWeaponData("철검", 1, 10, 20.0f, "ironsword.png", 320, 100, false, false),
-            CreateWeaponData("황금검", 1, 20, 25.0f, "goldensword.png", 1280, 100, false, false),
-            CreateWeaponData("다이아몬드검", 1, 50, 30.0f, "diamondsword.png", 5120, 100, false, false)
+            // 이름, 아이콘파일이름, Lv, DMG, Crit, Crit증가, 업그레이드 비용 증가, 데미지 증가, 초기 구매비용, 초기 업그레이드 비용, 구매여부, 장착여부
+            CreateWeaponData("나무검", "woodsword.png", 1, 1, 5.00f, 0.05f, 10, 1, 10, 10, true, true),
+            CreateWeaponData("돌검", "stonesword.png", 1, 5, 10.00f, 0.10f, 20, 2, 20, 20, false, false),
+            CreateWeaponData("철검", "ironsword.png", 1, 10, 15.00f, 0.20f, 40, 4, 40, 40, false, false),
+            CreateWeaponData("황금검", "goldensword.png", 1, 20, 20.00f, 0.4f, 80, 10, 80, 80, false, false),
+            CreateWeaponData("다이아몬드검", "diamondsword.png", 1, 50, 25.00f, 1.00f, 100, 20, 100, 100, false, false)
+
         };
 
         SaveWeapons(defaultWeapons);
     }
 
     // 무기 데이터 생성
-    public WeaponData CreateWeaponData(string weaponName, int upgradeLevel, int weaponDamage, float criticalPercentage, string icon, int purchaseCost, int upgradeCost, bool isPurchased, bool isEquiped)
+    public WeaponData CreateWeaponData(
+        string weaponName,
+        string icon,
+        int upgradeLevel,
+        int weaponDamage,
+        float criticalPercentage,
+        float incresedCriticalPercentage,
+        int increasedCost,
+        int incresedDamage,
+        int purchaseCost,
+        int upgradeCost,
+        bool isPurchased,
+        bool isEquiped)
     {
         WeaponData weapon = ScriptableObject.CreateInstance<WeaponData>();
-        weapon.Initialize(weaponName, upgradeLevel, weaponDamage, criticalPercentage, icon, purchaseCost, upgradeCost, isPurchased, isEquiped);
+        weapon.Initialize(
+            weaponName,
+            icon,
+            upgradeLevel,
+            weaponDamage,
+            criticalPercentage,
+            incresedCriticalPercentage,
+            increasedCost,
+            incresedDamage,
+            purchaseCost,
+            upgradeCost,
+            isPurchased,
+            isEquiped);
+
         return weapon;
     }
 
@@ -89,15 +116,27 @@ public class WeaponDataManager : MonoBehaviour
         {
             string[] data = lines[i].Split(',');
 
-            if (data.Length == 9)
+            if (data.Length == 12)
             {
                 // CSV에서 아이콘 파일명 호출
-                string iconFileName = data[4];
+                string iconFileName = data[1];
 
                 // WeaponData 객체 초기화
                 WeaponData weapon = ScriptableObject.CreateInstance<WeaponData>();
-                weapon.Initialize(data[0], int.Parse(data[1]), int.Parse(data[2]), float.Parse(data[3]), iconFileName, int.Parse(data[5]), int.Parse(data[6]), bool.Parse(data[7]), bool.Parse(data[8]));
-
+                weapon.Initialize(
+                    data[0],                          // weaponName (string)
+                    data[1],                          // icon (string)
+                    int.Parse(data[2]),               // upgradeLevel (int)
+                    int.Parse(data[3]),               // weaponDamage (int)
+                    float.Parse(data[4]),             // criticalPercentage (float)
+                    float.Parse(data[5]),             // incresedCriticalPercentage (float)
+                    int.Parse(data[6]),               // increasedCost (int)
+                    int.Parse(data[7]),               // incresedDamage (int)
+                    int.Parse(data[8]),               // purchaseCost (int)
+                    int.Parse(data[9]),               // upgradeCost (int)
+                    bool.Parse(data[10]),             // isPurchased (bool)
+                    bool.Parse(data[11])              // isEquiped (bool)
+                );
                 weapons.Add(weapon);  // 무기 데이터 불러오기
             }
         }
@@ -110,7 +149,7 @@ public class WeaponDataManager : MonoBehaviour
     {
         List<string> lines = new List<string>
         {
-            "weaponName,upgradeLevel,weaponDamage,criticalPercentage,icon,purchaseCost,upgradeCost,IsPurchased,IsEquiped"
+        "weaponName,icon,upgradeLevel,weaponDamage,criticalPercentage,incresedCriticalPercentage,increasedCost,incresedDamage,purchaseCost,upgradeCost,IsPurchased,IsEquiped"
         };
 
         foreach (var weapon in weapons)
