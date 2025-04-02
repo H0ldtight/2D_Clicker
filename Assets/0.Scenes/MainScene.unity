@@ -2226,6 +2226,7 @@ GameObject:
   - component: {fileID: 835931420}
   - component: {fileID: 835931419}
   - component: {fileID: 835931418}
+  - component: {fileID: 835931421}
   m_Layer: 5
   m_Name: PausedButton
   m_TagString: Untagged
@@ -2334,6 +2335,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835931416}
   m_CullTransparentMesh: 1
+--- !u!114 &835931421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835931416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bfb38189c21d8c4b8b3fd4382d787d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &871064346 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2446531542859452722, guid: 9694c6b8a91c93645823df909e1022a7, type: 3}
@@ -2459,6 +2472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statData: {fileID: 11400000, guid: e4a1be10098e6ee4e934778675a5155f, type: 2}
+  autoAttackDamage: 10
   gold: 0
   point: 0
   finalAttackPower: 0
@@ -3034,6 +3048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7329067107323729596, guid: f6092f0cdbe84400dac506e78b8ac78d, type: 3}
+  currentEnemyData: {fileID: 0}
   enemyParent: {fileID: 421058981}
 --- !u!4 &1140610576
 Transform:

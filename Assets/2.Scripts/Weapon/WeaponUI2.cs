@@ -88,6 +88,8 @@ public class WeaponUI2 : MonoBehaviour
     // WeaponInventory 활성화
     public void WeaponInventoryPopUp()
     {
+        GameManager.Instance.isPaused = true;
+        UIManager.Instance.enemyObj.SetActive(false);
         WeaponInventory.SetActive(true);
         SetWeaponSlots();  // UI가 활성화된 후에 슬롯을 업데이트
     }
@@ -95,6 +97,8 @@ public class WeaponUI2 : MonoBehaviour
     // WeaponInventory 비활성화
     public void WeaponInventoryClose()
     {
+        GameManager.Instance.isPaused = false;
+        UIManager.Instance.enemyObj.SetActive(true);
         WeaponInventory.SetActive(false);
         SetEquippedWeapons();
     }

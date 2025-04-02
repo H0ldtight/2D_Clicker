@@ -26,6 +26,14 @@ public class Stat
     }
 }
 
+//데이터 직렬화용 StatData
+[Serializable]
+public class SerializableStatData
+{
+    public List<Stat> stats = new List<Stat>();
+}
+
+
 [CreateAssetMenu(fileName = "NewStatBase", menuName ="Stats")]
 public class StatData : ScriptableObject
 {

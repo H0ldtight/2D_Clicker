@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenMainUi() // 메인 화면
     {
+        GameManager.Instance.StartAutoAttack();
         FadeManager.Instance.FadeIn(); // 화면 전환 효과
         mainUiObj.SetActive(true);
         enemyObj.SetActive(true);
@@ -79,7 +80,7 @@ public class UIManager : MonoBehaviour
         pausedUiObj.SetActive(togle);
         enemyObj.SetActive(!togle);
     }
-    public void OpenWeaponInventoryUi() // 장비 인벤토리 화면
+    public void OpenWeaponInventoryUi() // 장비 인벤토리 화면 // WeaponUI에서 구현중
     {
         weaponInventoryUiObj.SetActive(true);
     }
@@ -87,12 +88,11 @@ public class UIManager : MonoBehaviour
     public void OpenSoundUi()
     {
         soundUiObj.SetActive(true);
-        enemyObj.SetActive(false);
+
     }
     public void CloseSoundUi()
     {
         soundUiObj.SetActive(false);
-        enemyObj.SetActive(true);
     }
 
 }

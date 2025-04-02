@@ -1,7 +1,36 @@
 {
     "statData": {
-        "instanceID": -31750
+        "instanceID": -5566
     },
-    "point": 70,
-    "gold": 295
+    "UO": [
+        {
+            "key": 0,
+            "value": {
+                "value": 0.20000000298023225,
+                "level": 7,
+                "requireGold": 3200,
+                "statType": 0
+            }
+        },
+        {
+            "key": 1,
+            "value": {
+                "value": 50.0,
+                "level": 7,
+                "requireGold": 3200,
+                "statType": 1
+            }
+        },
+        {
+            "key": 2,
+            "value": {
+                "value": 5.0,
+                "level": 7,
+                "requireGold": 3200,
+                "statType": 2
+            }
+        }
+    ],
+    "point": 1635,
+    "gold": 3060
 }
