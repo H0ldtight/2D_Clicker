@@ -46,9 +46,9 @@ public class WeaponDataManager : MonoBehaviour
 
     private IEnumerator DelayedSetWeapons(List<WeaponData> weapons)
     {
-        // WeaponUI2 인스턴스가 초기화될 때까지 기다린다.
-        yield return new WaitUntil(() => WeaponUI2.Instance != null);
-        WeaponUI2.Instance.SetWeapons(weapons);
+        // WeaponManager 인스턴스가 초기화될 때까지 기다린다.
+        yield return new WaitUntil(() => WeaponManager.Instance != null);
+        WeaponManager.Instance.SetWeapons(weapons);
     }
     public void CreateDefaultCsv()
     {

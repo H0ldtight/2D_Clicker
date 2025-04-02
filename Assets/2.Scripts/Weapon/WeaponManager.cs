@@ -3,10 +3,12 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class WeaponUI2 : MonoBehaviour
+public class WeaponManager : MonoBehaviour
 {
 
-    public static WeaponUI2 Instance { get; private set; }
+    public static WeaponManager Instance { get; private set; }
+
+    public WeaponData EquipedWeapon { get; private set; } = null;
 
     private List<WeaponData> weapons = new List<WeaponData>();
     public List<WeaponSlot> weaponSlots = new List<WeaponSlot>();
@@ -80,6 +82,7 @@ public class WeaponUI2 : MonoBehaviour
             if (weapons[i].isPurchased && weapons[i].isEquiped)
             {
                 SetWeaponData(weapons[i]);
+                EquipedWeapon = weapons[i];
             }
         }
     }
