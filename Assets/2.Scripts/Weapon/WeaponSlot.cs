@@ -60,6 +60,7 @@ public class WeaponSlot : MonoBehaviour
             currentWeapon.upgradeCost += currentWeapon.increasedCost;
             currentWeapon.weaponDamage += currentWeapon.incresedDamage;
             currentWeapon.criticalPercentage += currentWeapon.incresedCriticalPercentage;
+            GameManager.Instance.CalculateFinalStats();
             UpdateWeaponUI();
         }
     }

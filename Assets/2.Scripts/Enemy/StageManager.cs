@@ -69,7 +69,6 @@ public class StageManager : MonoBehaviour
         }
         
         EnemyManager.Instance.SpawnEnemy(stageEnemy);
-        Debug.Log(stageEnemy.maxHealth);
     }
 
     public void OnStageCleared()

@@ -1,14 +1,14 @@
 {
     "statData": {
-        "instanceID": -77384
+        "instanceID": -193836
     },
     "UO": [
         {
             "key": 0,
             "value": {
                 "value": 0.20000000298023225,
-                "level": 0,
-                "requireGold": 25,
+                "level": 5,
+                "requireGold": 800,
                 "statType": 0
             }
         },
@@ -35,22 +35,18 @@
         "stats": [
             {
                 "stat": 0,
-                "totalValue": 2968.00048828125
+                "totalValue": 1.0
             },
             {
                 "stat": 1,
-                "totalValue": 2968.00048828125
+                "totalValue": 1.0
             },
             {
                 "stat": 2,
-                "totalValue": 2968.00048828125
-            },
-            {
-                "stat": 3,
-                "totalValue": 2968.00048828125
+                "totalValue": 1.0
             }
         ]
     },
-    "point": 130,
-    "gold": 305
+    "point": 935,
+    "gold": 175
 }

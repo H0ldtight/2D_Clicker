@@ -53,6 +53,10 @@ public class UIManager : MonoBehaviour
         mainUiObj.SetActive(false);
         pausedUiObj.SetActive(false);
         stageUiObj.SetActive(false);
+        foreach (Transform child in enemyObj.transform) //적 중복 생성 방지
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         togle = false; 
         GameManager.Instance.isPaused = true; //일시 정지 
         //SoundManager.Instance.ApplyBGM(BGMType.Start);

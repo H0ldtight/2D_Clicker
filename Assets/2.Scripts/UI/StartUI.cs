@@ -27,7 +27,6 @@ public class StartUI : MonoBehaviour
     }
     public void OnClickContinue()
     {
-        GameManager.Instance.LoadPlayerData();
         WeaponDataManager.Instance.ContinueWeaponData();
         UIManager.Instance.OpenMainUi();
         GameManager.Instance.LoadPlayerData();

@@ -90,8 +90,6 @@ public class Character
         {
             SD.stats.Add(stat);
         }
-
-        // int a = 3;
     }
 
     //업그레이드하기
@@ -130,7 +128,7 @@ public class Character
         //골드획득량증가 옵션 등록
         upgradeOptions.Add(UpgradeType.PlusGold, new UpgradeOption(5, 0, 25, StatType.ExtraGold));
         //자동공격 몇초에 1대씩 때릴건지
-        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.2f, 0, 25, StatType.ReduceAttackSpeed));
+        upgradeOptions.Add(UpgradeType.AutoAttack, new UpgradeOption(0.1f, 0, 25, StatType.ReduceAttackSpeed));
         //크리티컬 데미지 증가
         upgradeOptions.Add(UpgradeType.Critical, new UpgradeOption(50, 0, 25, StatType.Criticaldamage));
     }

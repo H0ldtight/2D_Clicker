@@ -74,7 +74,9 @@ public class WeaponManager : MonoBehaviour
         weaponAtk.text = weapon.weaponDamage.ToString();
         weaponCrit.text = weapon.criticalPercentage.ToString("N2") + "%";
     }
-
+    /// <summary>
+    /// 무기 장착
+    /// </summary>
     public void SetEquippedWeapons()
     {
         for (int i = 0; i < weapons.Count; i++)
@@ -83,6 +85,7 @@ public class WeaponManager : MonoBehaviour
             {
                 SetWeaponData(weapons[i]);
                 EquipedWeapon = weapons[i];
+                GameManager.Instance.CalculateFinalStats();
             }
         }
     }

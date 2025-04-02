@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused; // 일시정지
 
     private Coroutine autoAttackCorutine; //코루틴 예외처리
-    public float autoAttackSpeed = 3f; // 기본 자동 공격 시간
+    public float autoAttackSpeed = 10f; // 기본 자동 공격 시간
     public WaitForSeconds autoAttackDelay;  // 자동공격 코루틴 딜레이 재생성 방지
 
     private string saveDirectory;//저장 경로
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     public void CalculateFinalStats()
     {
         finalAttackPower += WeaponManager.Instance.EquipedWeapon.weaponDamage;
-        //finalCritDamage = finalAttackPower * player.statData.GetStatValue(StatType.Criticaldamage);  무기 공격력에서 곱해줌
+        finalCritDamage = finalAttackPower * (int)player.statData.GetStatValue(StatType.Criticaldamage); // 무기 공격력에서 곱해줌
         finalGoldBonus = (int)player.statData.GetStatValue(StatType.ExtraGold);
     }
 
@@ -95,7 +95,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    // 자동공격 업그레이드
+    /// <summary>
+    /// 자동 공격 업그레이드 부분
+    /// </summary>
     public void UpgradeAutoAttackSpeed()
     {
         player.Upgrade(UpgradeType.AutoAttack);
@@ -134,14 +136,14 @@ public class GameManager : MonoBehaviour
         {
             float random = UnityEngine.Random.Range(0.0f, 1.0f);
             float _critChance = WeaponManager.Instance.EquipedWeapon.criticalPercentage;
-            if (random < _critChance) //나중 무기 크리티컬
+            if (random < _critChance) //크리티컬 데미지
             {
-                target.TakeDamage(20);
+                target.TakeDamage(finalCritDamage);
                 SoundManager.Instance.ApplyCriticalSFX();
             }
-            else
+            else //일반 공격
             {
-                target.TakeDamage(10);
+                target.TakeDamage(finalAttackPower);
                 SoundManager.Instance.ApplyMainSceneSFX();
             }
             SoundManager.Instance.PlaySFX();
@@ -176,6 +178,7 @@ public class GameManager : MonoBehaviour
     {
         player.Upgrade(UpgradeType.Critical);
         UIManager.Instance.MainUI.UpdateUI();
+        CalculateFinalStats();
     }
 
     //골드 획득량 증가 업그레이드
@@ -219,21 +222,21 @@ public class GameManager : MonoBehaviour
     //데이터 불러오기
     public void LoadPlayerData()
     {
-        //string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
+        string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
 
-        //if (!File.Exists(filePath))
-        //{
-        //    Debug.LogWarning("There is no SaveFile.");
-        //    NewPlayerData();
-        //    return;
-        //}
-        //string json = File.ReadAllText(filePath);  // 읽기
-        //player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
-        //player.LoadValue();
-        //gold = player.gold;
-        //point = player.point;
-        //UIManager.Instance.MainUI.WeaponUI.UpdateUI();
-
+        if (!File.Exists(filePath))
+        {
+            Debug.LogWarning("There is no SaveFile.");
+            NewPlayerData();
+            return;
+        }
+        string json = File.ReadAllText(filePath);  // 읽기
+        player = JsonUtility.FromJson<Character>(json); // 원래 데이터로 변환
+        player.LoadValue();
+        gold = player.gold;
+        point = player.point;
+        UpgradeAutoAttackSpeed();
+        UIManager.Instance.MainUI.WeaponUI.UpdateUI();
         LoadStageIndex();
     }
 

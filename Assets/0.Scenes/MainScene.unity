@@ -15843,6 +15843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e3b93ddbbed6f469ff8bde92201eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapons: []
   weaponSlots:
   - {fileID: 5890525131290060158}
   - {fileID: 2026897347}
