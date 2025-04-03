@@ -1,14 +1,14 @@
 {
     "statData": {
-        "instanceID": -25510
+        "instanceID": -30850
     },
     "UO": [
         {
             "key": 0,
             "value": {
                 "value": 0.10000000149011612,
-                "level": 0,
-                "requireGold": 25,
+                "level": 3,
+                "requireGold": 200,
                 "statType": 0
             }
         },
@@ -16,8 +16,8 @@
             "key": 1,
             "value": {
                 "value": 1.0,
-                "level": 0,
-                "requireGold": 25,
+                "level": 2,
+                "requireGold": 100,
                 "statType": 1
             }
         },
@@ -25,8 +25,8 @@
             "key": 2,
             "value": {
                 "value": 1.0,
-                "level": 0,
-                "requireGold": 25,
+                "level": 1,
+                "requireGold": 50,
                 "statType": 2
             }
         }
@@ -35,18 +35,18 @@
         "stats": [
             {
                 "stat": 0,
-                "totalValue": 1.0
+                "totalValue": 4.299999713897705
             },
             {
                 "stat": 1,
-                "totalValue": 1.0
+                "totalValue": 4.299999713897705
             },
             {
                 "stat": 2,
-                "totalValue": 1.0
+                "totalValue": 4.299999713897705
             }
         ]
     },
-    "point": 0,
-    "gold": 0
+    "point": 3460,
+    "gold": 395
 }
