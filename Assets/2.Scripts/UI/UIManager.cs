@@ -44,7 +44,10 @@ public class UIManager : MonoBehaviour
         OpenStartUi();
         pausedBtn.onClick.AddListener(() => TogglePausedUi());
     }
-    public void OpenStartUi() // 시작 화면
+    /// <summary>
+    /// 시작 화면
+    /// </summary>
+    public void OpenStartUi() 
 
     {
         FadeManager.Instance.FadeIn(); // 화면 전환 효과
@@ -62,8 +65,10 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.ApplyBGM(BGMType.Start);
         SoundManager.Instance.ApplyStartSceneSFX();
     }
-
-    public void OpenMainUi() // 메인 화면
+    /// <summary>
+    /// 게임 시작 화면
+    /// </summary>
+    public void OpenMainUi() 
     {
         GameManager.Instance.StartAutoAttack();
         FadeManager.Instance.FadeIn(); // 화면 전환 효과
@@ -88,12 +93,17 @@ public class UIManager : MonoBehaviour
     {
         weaponInventoryUiObj.SetActive(true);
     }
-    
+    /// <summary>
+    /// 사운드 옵션 On
+    /// </summary>
     public void OpenSoundUi()
     {
         soundUiObj.SetActive(true);
 
     }
+    /// <summary>
+    /// 사운도 옵션 off
+    /// </summary>
     public void CloseSoundUi()
     {
         soundUiObj.SetActive(false);

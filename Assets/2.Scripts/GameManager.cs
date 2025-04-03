@@ -52,7 +52,9 @@ public class GameManager : MonoBehaviour
     {
         autoAttackDelay = new WaitForSeconds(autoAttackSpeed);
     }
-
+    /// <summary>
+    /// 스탯 종합
+    /// </summary>
     public void CalculateFinalStats()
     {
         if (WeaponManager.Instance.EquipedWeapon == null)
@@ -69,8 +71,11 @@ public class GameManager : MonoBehaviour
     {
         PerformAttack(false);
     }
-
-    public void SpawnClickEffect(Vector3 screenPosition) //파티클 시스템
+    /// <summary>
+    /// 마우스 클릭 파티클 시스템 
+    /// </summary>
+    /// <param name="screenPosition"></param>
+    public void SpawnClickEffect(Vector3 screenPosition) 
     {
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
         worldPos.z = 0f;
@@ -79,6 +84,11 @@ public class GameManager : MonoBehaviour
         Destroy(fx, 1f);
     }
 
+    /// <summary>
+    /// 골드 사용
+    /// </summary>
+    /// <param name="usegold"></param>
+    /// <returns></returns>
     public bool UseGold(int usegold) // 타입을 받아오면 하나로 줄일 수 있음.
     {
         if(gold>= usegold)
@@ -89,6 +99,11 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.MainUI.OpenMessage("골드가 부족합니다.");
         return false;
     }
+    /// <summary>
+    /// 포인트 사용
+    /// </summary>
+    /// <param name="usepoint"></param>
+    /// <returns></returns>
     public bool UsePoint(int usepoint)// 타입을 받아오면 하나로 줄일 수 있음.
     {
         if(point >= usepoint)
@@ -115,13 +130,20 @@ public class GameManager : MonoBehaviour
         StartAutoAttack();
     }
 
-    public void StartAutoAttack() // 자동공격 코루틴
+
+    /// <summary>
+    /// 자동 공격 시작 코루틴
+    /// </summary>
+    public void StartAutoAttack() 
     {
         if (autoAttackCorutine == null)
             autoAttackCorutine = StartCoroutine(AutoAttack());
     }
 
-    public void StopAutoAttack() // 자동공격 stop 코루틴
+    /// <summary>
+    /// 자동 공격 정지 코루틴
+    /// </summary>
+    public void StopAutoAttack() 
     {
         if (autoAttackCorutine != null)
         {
@@ -133,7 +155,10 @@ public class GameManager : MonoBehaviour
     {
         PerformAttack(true);
     }
-
+    /// <summary>
+    /// 적 공격 함수
+    /// </summary>
+    /// <param name="Auto"></param>
     public void PerformAttack(bool Auto = false)
     {
         Enemy target = EnemyManager.Instance.CurrentEnemy;
@@ -168,7 +193,12 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private IEnumerator AutoAttack() //딜레이
+
+    /// <summary>
+    /// 자동공격 동작
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator AutoAttack() 
     {
         while (true)
         {
@@ -180,7 +210,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //크리티컬 업그레이드
+ /// <summary>
+ /// 크리티컬 업그레이드 버튼으로 연결되어있습니다.
+ /// </summary>
     public void UpgradeCriticalDamage()
     {
         player.Upgrade(UpgradeType.Critical);
@@ -188,7 +220,9 @@ public class GameManager : MonoBehaviour
         CalculateFinalStats();
     }
 
-    //골드 획득량 증가 업그레이드
+  /// <summary>
+  /// 골드 획득량 업그레이드 버튼으로 연결되어있습니다.
+  /// </summary>
     public void UpgradeMoreMoney()
     {
         player.Upgrade(UpgradeType.PlusGold);
@@ -196,13 +230,18 @@ public class GameManager : MonoBehaviour
         CalculateFinalStats();
     }
 
-
+  /// <summary>
+  /// 적 처지시 포인트 증가
+  /// </summary>
+  /// <param name="amount"></param>
     public void AddPoint(int amount)
     {
         point += amount;
     }
 
-    //새로 시작하기
+ /// <summary>
+ /// 새로 시작하기 
+ /// </summary>
     public void NewPlayerData()
     {
         StageManager.Instance.LoadStageFromSave(0);
@@ -219,7 +258,9 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
     }
 
-    //데이터 저장하기
+ /// <summary>
+ /// 데이터 저장하기
+ /// </summary>
     public void SaveData()
     {
         player.point = point;
@@ -232,7 +273,9 @@ public class GameManager : MonoBehaviour
         SaveStageIndex();
     }
 
-    //데이터 불러오기
+ /// <summary>
+ /// 데이터 불러오기(이어하기)
+ /// </summary>
     public void LoadPlayerData()
     {
         string filePath = Path.Combine(saveDirectory, "PlayerData.json"); //파일 경로
@@ -253,7 +296,9 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.MainUI.WeaponUI.UpdateUI();
         LoadStageIndex();
     }
-
+    /// <summary>
+    /// 스테이지 저장
+    /// </summary>
     public void SaveStageIndex()
     {
         string path = Path.Combine(saveDirectory, "StageData.json");
@@ -261,7 +306,9 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(path, currentStage.ToString());
         Debug.Log($"[스테이지 저장 완료] {currentStage}");
     }
-
+    /// <summary>
+    /// 스테이지 불러오기
+    /// </summary>
     public void LoadStageIndex()
     {
         string path = Path.Combine(saveDirectory, "StageData.json");

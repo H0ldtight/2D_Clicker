@@ -56,10 +56,10 @@ public class WeaponDataManager : MonoBehaviour
         {
             // 이름, 아이콘파일이름, Lv, DMG, Crit, Crit증가, 업그레이드 비용 증가, 데미지 증가, 초기 구매비용, 초기 업그레이드 비용, 구매여부, 장착여부
             CreateWeaponData("나무검", "woodsword.png", 1, 1, 0.05f, 0.05f, 10, 1, 10, 10, true, true),
-            CreateWeaponData("돌검", "stonesword.png", 1, 5, 0.1f, 0.10f, 20, 2, 20, 20, false, false),
-            CreateWeaponData("철검", "ironsword.png", 1, 10, 0.15f, 0.20f, 40, 4, 40, 40, false, false),
-            CreateWeaponData("황금검", "goldensword.png", 1, 20, 0.2f, 0.4f, 80, 10, 80, 80, false, false),
-            CreateWeaponData("다이아몬드검", "diamondsword.png", 1, 50, 0.25f, 1.00f, 100, 20, 100, 100, false, false)
+            CreateWeaponData("돌검", "stonesword.png", 1, 3, 0.1f, 0.10f, 20, 2, 20, 20, false, false),
+            CreateWeaponData("철검", "ironsword.png", 1, 5, 0.15f, 0.20f, 40, 4, 40, 40, false, false),
+            CreateWeaponData("황금검", "goldensword.png", 1, 10, 0.2f, 0.4f, 80, 10, 80, 80, false, false),
+            CreateWeaponData("다이아몬드검", "diamondsword.png", 1, 20, 0.25f, 1.00f, 100, 20, 100, 100, false, false)
         };
 
         SaveWeapons(defaultWeapons);
