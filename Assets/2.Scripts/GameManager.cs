@@ -141,6 +141,8 @@ public class GameManager : MonoBehaviour
         {
             float random = UnityEngine.Random.Range(0.0f, 1.0f);
             float _critChance = WeaponManager.Instance.EquipedWeapon.criticalPercentage;
+            Debug.Log(random);
+            Debug.Log(_critChance);
             if (random < _critChance) //크리티컬 데미지
             {
                 target.TakeDamage(finalCritDamage);
